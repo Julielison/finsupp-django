@@ -1,0 +1,3 @@
+# Requisitos principais
+Django>=4.2
+pytest
