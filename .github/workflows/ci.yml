@@ -35,4 +35,4 @@ jobs:
 
       - name: Run Tests with coverage
         run: |
-          pytest finsupp/ --tb=short -q --cov=finsupp --cov-report=term-missing
+          pytest finsupp/ --tb=short
