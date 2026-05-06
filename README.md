@@ -79,3 +79,17 @@ Para rodar **apenas os testes de integração**:
 ```bash
 pytest finsupp/*/tests/integration/
 ```
+
+### 📊 Relatório de Cobertura (Coverage)
+O projeto utiliza o pacote `pytest-cov` para analisar o percentual de código coberto pelos testes. 
+
+Você pode rodar os testes e acompanhar no próprio terminal as linhas não cobertas:
+```bash
+pytest --cov=. --cov-report=term-missing
+```
+
+Ou, gerar um relatório visual HTML interativo:
+```bash
+pytest --cov=. --cov-report=html
+```
+Um diretório `htmlcov/` será criado com um arquivo `index.html`. Abra-o no navegador e veja detalhadamente todos os arquivos e linhas de códigos que estão ou não cobertos.
