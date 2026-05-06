@@ -34,5 +34,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Tests with coverage
+        env:
+          BREVO_SMTP_LOGIN: dummy_test_user
+          BREVO_SMTP_KEY: dummy_test_key
         run: |
-          pytest finsupp/ --cov=. --cov-report=term-missing --cov-fail-under=80 --tb=short
+          pytest finsupp/ --cov=finsupp/ --cov-report=term-missing --cov-fail-under=80 --tb=short
