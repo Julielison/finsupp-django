@@ -49,7 +49,36 @@ Acesse em: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
-## 🔐 Módulo de Autenticação (`accounts`)
+## 📁 Estrutura de Diretórios
+```text
+finsupp-django/
+├── requirements.txt         # Dependências do projeto
+├── README.md                # Documentação
+└── finsupp/                 # Raiz da aplicação Django
+    ├── manage.py            # CLI do Django
+    ├── pytest.ini           # Configuração de Testes (pytest)
+    ├── finsupp/             # Configurações globais do projeto (settings, asgi, wsgi, urls)
+    ├── accounts/            # App responsável por Autenticação, Usuários, etc.
+    │   ├── forms.py
+    │   ├── models.py
+    │   ├── views.py
+    │   ├── urls.py
+    │   └── tests/           # Testes divididos por contexto
+    │       ├── integration/ # Testes de fluxos e Views
+    │       └── unit/        # Testes de Forms, Models e regras de negócio
+    ├── core/                # App central / domínios principais da aplicação
+    │   ├── models.py
+    │   ├── views.py
+    │   └── tests/
+    │       ├── integration/
+    │       └── unit/
+    └── templates/           # Arquivos de front-end / Tailwind
+        └── auth/            # Telas do fluxo de autenticação (login, register...)
+```
+
+---
+
+## �🔐 Módulo de Autenticação (`accounts`)
 
 O projeto utiliza um fluxo de autenticação customizado:
 - **Custom User Model:** Login via `email`.
