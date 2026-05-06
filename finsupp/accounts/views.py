@@ -30,6 +30,11 @@ class CustomLoginView(auth_views.LoginView):
 
 class CustomLogoutView(auth_views.LogoutView):
     next_page = reverse_lazy('accounts:login')
+    
+    http_method_names = ['get', 'post', 'options']
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
