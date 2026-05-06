@@ -49,7 +49,36 @@ Acesse em: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
-## 🔐 Módulo de Autenticação (`accounts`)
+## 📁 Estrutura de Diretórios
+```text
+finsupp-django/
+├── requirements.txt         # Dependências do projeto
+├── README.md                # Documentação
+└── finsupp/                 # Raiz da aplicação Django
+    ├── manage.py            # CLI do Django
+    ├── pytest.ini           # Configuração de Testes (pytest)
+    ├── finsupp/             # Configurações globais do projeto (settings, asgi, wsgi, urls)
+    ├── accounts/            # App responsável por Autenticação, Usuários, etc.
+    │   ├── forms.py
+    │   ├── models.py
+    │   ├── views.py
+    │   ├── urls.py
+    │   └── tests/           # Testes divididos por contexto
+    │       ├── integration/ # Testes de fluxos e Views
+    │       └── unit/        # Testes de Forms, Models e regras de negócio
+    ├── core/                # App central / domínios principais da aplicação
+    │   ├── models.py
+    │   ├── views.py
+    │   └── tests/
+    │       ├── integration/
+    │       └── unit/
+    └── templates/           # Arquivos de front-end / Tailwind
+        └── auth/            # Telas do fluxo de autenticação (login, register...)
+```
+
+---
+
+## �🔐 Módulo de Autenticação (`accounts`)
 
 O projeto utiliza um fluxo de autenticação customizado:
 - **Custom User Model:** Login via `email`.
@@ -58,5 +87,38 @@ O projeto utiliza um fluxo de autenticação customizado:
 - **Templates:** As views esperam templates em `accounts/` (ex: `login.html`, `signup.html`).
 
 ## 🛠️ Comandos Úteis
-- Rodar Testes: `pytest`
-- Acessar Admin: `/admin`
+- **Acessar Admin:** `/admin`
+
+### 🧪 Executando Testes
+Os testes da aplicação foram separados por conceito em diretórios específicos:
+- **Testes Unitários:** Concentram-se na validação de *Models*, *Services*, *Serializers* e *Forms*.
+- **Testes de Integração:** Concentram-se na validação dos *Views*, chamadas ao banco de dados e fluxos de navegação.
+
+Para rodar **todos os testes**, na raiz do projeto ou dentro de `finsupp/`:
+```bash
+pytest
+```
+
+Para rodar **apenas os testes unitários**:
+```bash
+pytest finsupp/*/tests/unit/
+```
+
+Para rodar **apenas os testes de integração**:
+```bash
+pytest finsupp/*/tests/integration/
+```
+
+### 📊 Relatório de Cobertura (Coverage)
+O projeto utiliza o pacote `pytest-cov` para analisar o percentual de código coberto pelos testes. 
+
+Você pode rodar os testes e acompanhar no próprio terminal as linhas não cobertas:
+```bash
+pytest --cov=. --cov-report=term-missing
+```
+
+Ou, gerar um relatório visual HTML interativo:
+```bash
+pytest --cov=. --cov-report=html
+```
+Um diretório `htmlcov/` será criado com um arquivo `index.html`. Abra-o no navegador e veja detalhadamente todos os arquivos e linhas de códigos que estão ou não cobertos.
