@@ -35,5 +35,4 @@ jobs:
 
       - name: Run Tests with coverage
         run: |
-          cd finsupp
-          pytest --cov=. --cov-report=term-missing --cov-fail-under=80 --tb=short
+          pytest finsupp/ --cov=. --cov-report=term-missing --cov-fail-under=80 --tb=short
