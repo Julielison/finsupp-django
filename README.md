@@ -58,5 +58,24 @@ O projeto utiliza um fluxo de autenticação customizado:
 - **Templates:** As views esperam templates em `accounts/` (ex: `login.html`, `signup.html`).
 
 ## 🛠️ Comandos Úteis
-- Rodar Testes: `pytest`
-- Acessar Admin: `/admin`
+- **Acessar Admin:** `/admin`
+
+### 🧪 Executando Testes
+Os testes da aplicação foram separados por conceito em diretórios específicos:
+- **Testes Unitários:** Concentram-se na validação de *Models*, *Services*, *Serializers* e *Forms*.
+- **Testes de Integração:** Concentram-se na validação dos *Views*, chamadas ao banco de dados e fluxos de navegação.
+
+Para rodar **todos os testes**, na raiz do projeto ou dentro de `finsupp/`:
+```bash
+pytest
+```
+
+Para rodar **apenas os testes unitários**:
+```bash
+pytest finsupp/*/tests/unit/
+```
+
+Para rodar **apenas os testes de integração**:
+```bash
+pytest finsupp/*/tests/integration/
+```
