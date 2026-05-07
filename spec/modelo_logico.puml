@@ -1,0 +1,152 @@
+@startuml
+class CategoryEntity {
+    - id: int
+    - description: str
+    - visibility: CategoryVisibility
+    + __init__(description: str, visibility: CategoryVisibility = PUBLIC)
+}
+class UserEntity {
+    - id: UUID
+    - name: str
+    - email: str
+    - password: str
+    - role: set[str]
+}
+enum BillStatus {
+    OPEN
+    CLOSED
+    PAID
+    OVERDUE
+    CANCELED
+}
+class SubscriptionEntity {
+    - id: int
+    - description: str
+    - price: float
+    - interval: SubscriptionInterval
+    - status: SubscriptionStatus
+    - account: AccountEntity
+    - card: CardEntity
+    + entity_to_response_dto() -> SubscriptionResponseDTO
+}
+class BankEntity {
+    - id: int
+    - name: str
+    + __init__(name: str)
+}
+class AccountEntity {
+    - id: int
+    - description: str
+    - balance: float
+    - bank: BankEntity
+    - account_type: AccountType
+    - closing_day: int
+    - payment_due_day: int
+    - user: UserEntity
+}
+enum CategoryVisibility {
+    PUBLIC
+    PRIVATE
+    ALL
+}
+enum AccountType {
+    CHECKING
+    SAVINGS
+    INVESTMENT
+}
+class BillItemEntity {
+    - id: int
+    - bill: BillEntity
+    - transaction: TransactionEntity
+    - subscription: SubscriptionEntity
+    - amount: float
+    - installment_number: int
+}
+class TransactionEntity {
+    - id: int
+    - description: str
+    - amount: float
+    - installments: int
+    - is_add_to_bill: bool
+    - transaction_date: date
+    - transaction_type: TransactionType
+    - category: CategoryEntity
+    - account: AccountEntity
+    - card: CardEntity
+    - recipient_account: AccountEntity
+}
+class TransactionEntityFinder {
+    - account: AccountEntity
+    - recipient_account: AccountEntity
+    - add_to_bill: bool
+    - category: CategoryEntity | None
+    --
+    + __init__(account: AccountEntity, recipient_account: AccountEntity, category: CategoryEntity | None = None)
+    + {static} basic(account: AccountEntity, recipient_account: AccountEntity) -> TransactionEntityFinder
+    + {static} with_category(account: AccountEntity, recipient_account: AccountEntity, category: CategoryEntity) -> TransactionEntityFinder
+}
+enum TransactionType {
+    DEPOSIT
+    WITHDRAW
+    TRANSFER
+}
+enum CardType {
+    DEBIT
+    CREDIT
+}
+class BillEntity {
+    - id: int
+    - card: CardEntity
+    - account: AccountEntity
+    - start_date: date
+    - end_date: date
+    - due_date: date
+    - total_amount: float
+    - status: BillStatus
+}
+class CardEntity {
+    - id: int
+    - description: str
+    - last_numbers: str
+    - limit: int
+    - type: CardType
+    - account: AccountEntity
+    + entity_to_response_dto() -> CardResponseDTO
+}
+enum SubscriptionInterval {
+    MONTHLY
+    YEARLY
+    SEMI_ANNUAL
+    QUARTERLY
+}
+enum SubscriptionStatus {
+    ACTIVE
+    INACTIVE
+}
+' =========================
+' RELACIONAMENTOS
+' =========================
+UserEntity "1" -- "*" AccountEntity
+BankEntity "1" -- "*" AccountEntity
+AccountEntity "1" -- "*" CardEntity
+AccountEntity "1" -- "*" TransactionEntity
+AccountEntity "1" -- "*" SubscriptionEntity
+AccountEntity "1" -- "*" BillEntity
+CategoryEntity "1" -- "*" TransactionEntity
+CardEntity "1" -- "*" SubscriptionEntity
+CardEntity "1" -- "*" TransactionEntity
+CardEntity "1" -- "*" BillEntity
+BillEntity "1" -- "*" BillItemEntity
+TransactionEntity "1" -- "*" BillItemEntity
+SubscriptionEntity "1" -- "*" BillItemEntity
+TransactionEntity --> TransactionType
+CardEntity --> CardType
+BillEntity --> BillStatus
+SubscriptionEntity --> SubscriptionInterval
+SubscriptionEntity --> SubscriptionStatus
+AccountEntity --> AccountType
+CategoryEntity --> CategoryVisibility
+TransactionEntityFinder --> AccountEntity
+TransactionEntityFinder --> CategoryEntity
+TransactionEntity --> AccountEntity : recipient_account
+@enduml
