@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Editar categoria{% else %}Nova categoria{% endif %} - FinSupp{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-2xl space-y-6">
+    <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">FinSupp / Categorias</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">{% if object %}Editar categoria{% else %}Nova categoria{% endif %}</h1>
+        <p class="mt-2 text-sm text-slate-600">Use o mesmo estilo da aplicação para manter a consistência visual.</p>
+
+        <form method="post" class="mt-6 space-y-5" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div>
+                <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-slate-700">Descrição</label>
+                <input id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" type="text" value="{{ form.description.value|default_if_none:'' }}" placeholder="Ex.: Alimentação" class="mt-2 block w-full rounded-xl border px-3 py-2.5 text-slate-900 shadow-sm focus:outline-none focus:ring-2 {% if form.description.errors %}border-red-300 focus:border-red-500 focus:ring-red-200{% else %}border-slate-300 focus:border-indigo-500 focus:ring-indigo-200{% endif %}">
+                {% if form.description.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.description.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <button type="submit" class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                    {% if object %}Salvar alterações{% else %}Criar categoria{% endif %}
+                </button>
+                <a href="{% url 'categories:list' %}" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                    Voltar
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
