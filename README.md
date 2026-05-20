@@ -66,6 +66,14 @@ finsupp-django/
     │   └── tests/           # Testes divididos por contexto
     │       ├── integration/ # Testes de fluxos e Views
     │       └── unit/        # Testes de Forms, Models e regras de negócio
+    ├── categories/          # App para gerenciar categorias financeiras
+    │   ├── forms.py
+    │   ├── models.py
+    │   ├── views.py
+    │   ├── urls.py
+    │   └── tests/
+    │       ├── integration/
+    │       └── unit/
     ├── core/                # App central / domínios principais da aplicação
     │   ├── models.py
     │   ├── views.py
@@ -73,7 +81,9 @@ finsupp-django/
     │       ├── integration/
     │       └── unit/
     └── templates/           # Arquivos de front-end / Tailwind
-        └── auth/            # Telas do fluxo de autenticação (login, register...)
+        ├── auth/            # Telas do fluxo de autenticação (login, register...)
+        ├── categories/      # Telas do CRUD de categorias (listagem, formulário, exclusão)
+        └── core/            # Telas principais da aplicação (ex: home)
 ```
 
 ---
@@ -85,6 +95,22 @@ O projeto utiliza um fluxo de autenticação customizado:
 - **Session Auth:** Autenticação baseada em sessões (substituindo JWT).
 - **Redirecionamentos:** Configurados no `settings.py` (`LOGIN_REDIRECT_URL`).
 - **Templates:** As views esperam templates em `accounts/` (ex: `login.html`, `signup.html`).
+
+## 🗂️ Módulo de Categorias (`categories`)
+
+Gerenciamento das categorias de itens financeiros.
+- **CRUD Completo:** Views baseadas em classes (CreateView, ListView, UpdateView, DeleteView).
+- **Associação de Usuário:** Cada usuário gerencia e visualiza apenas as suas categorias.
+- **Templates:** Estão estruturados em `templates/categories/` (`category_list.html`, `category_form.html`, `category_confirm_delete.html`).
+- **Navegação Integrada:** As funções estão acessíveis na home e as restrições de acesso (LoginRequiredMixin) estão implementadas.
+
+## 🏦 Módulo de Contas Bancárias (`bank_accounts`)
+
+Gerenciamento das contas bancárias dos usuários.
+- **Campos Detalhados:** Configuração do nome da conta, banco (select predefinido), tipo (corrente, poupança, investimento), e saldo inicial.
+- **Dias de Fechamento e Vencimento:** Suporte a datas de vencimento configuráveis pelo usuário (1 a 31).
+- **Isolamento de Dados:** Cada usuário visualiza exclusivamente suas próprias contas.
+- **CRUD Visual:** Interface elegante em Tailwind contendo lista interativa e modais consistentes com o resto da aplicação.
 
 ## 🛠️ Comandos Úteis
 - **Acessar Admin:** `/admin`

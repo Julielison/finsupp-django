@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     'categories',
     'accounts',
+    'bank_accounts',
 ]
 
 MIDDLEWARE = [
