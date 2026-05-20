@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Editar conta{% else %}Nova conta{% endif %} - FinSupp{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-2xl space-y-6">
+    <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">FinSupp / Contas Bancárias</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">{% if object %}Editar conta{% else %}Nova conta{% endif %}</h1>
+        <p class="mt-2 text-sm text-slate-600">Preencha os dados da conta bancária abaixo.</p>
+
+        <form method="post" class="mt-6 space-y-5" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div>
+                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-slate-700">Nome</label>
+                <input id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" type="text" value="{{ form.name.value|default_if_none:'' }}" placeholder="Ex.: Nubank" class="mt-2 block w-full rounded-xl border px-3 py-2.5 text-slate-900 shadow-sm focus:outline-none focus:ring-2 {% if form.name.errors %}border-red-300 focus:border-red-500 focus:ring-red-200{% else %}border-slate-300 focus:border-indigo-500 focus:ring-indigo-200{% endif %}">
+                {% if form.name.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.institution.id_for_label }}" class="block text-sm font-medium text-slate-700">Instituição</label>
+                <input id="{{ form.institution.id_for_label }}" name="{{ form.institution.html_name }}" type="text" value="{{ form.institution.value|default_if_none:'' }}" placeholder="Ex.: Banco Nubank SA" class="mt-2 block w-full rounded-xl border px-3 py-2.5 text-slate-900 shadow-sm focus:outline-none focus:ring-2 {% if form.institution.errors %}border-red-300 focus:border-red-500 focus:ring-red-200{% else %}border-slate-300 focus:border-indigo-500 focus:ring-indigo-200{% endif %}">
+                {% if form.institution.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.institution.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.balance.id_for_label }}" class="block text-sm font-medium text-slate-700">Saldo</label>
+                <input id="{{ form.balance.id_for_label }}" name="{{ form.balance.html_name }}" type="number" step="0.01" value="{{ form.balance.value|default_if_none:'' }}" placeholder="Ex.: 1000.00" class="mt-2 block w-full rounded-xl border px-3 py-2.5 text-slate-900 shadow-sm focus:outline-none focus:ring-2 {% if form.balance.errors %}border-red-300 focus:border-red-500 focus:ring-red-200{% else %}border-slate-300 focus:border-indigo-500 focus:ring-indigo-200{% endif %}">
+                {% if form.balance.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.balance.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <button type="submit" class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                    {% if object %}Salvar alterações{% else %}Criar conta{% endif %}
+                </button>
+                <a href="{% url 'bank_accounts:list' %}" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                    Voltar
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
