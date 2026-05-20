@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Apps do projeto
     'core',
+    'categories',
     'accounts',
+    'bank_accounts',
 ]
 
 MIDDLEWARE = [
@@ -150,8 +152,8 @@ EMAIL_HOST = 'smtp-relay.sendinblue.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = config('BREVO_SMTP_LOGIN')
-EMAIL_HOST_PASSWORD = config('BREVO_SMTP_KEY')
+EMAIL_HOST_USER = config('BREVO_SMTP_LOGIN', default='')
+EMAIL_HOST_PASSWORD = config('BREVO_SMTP_KEY', default='')
 DEFAULT_FROM_EMAIL = 'nao-responda@ugustavodev.com.br'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
