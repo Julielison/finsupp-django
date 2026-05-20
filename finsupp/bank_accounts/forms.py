@@ -10,23 +10,42 @@ class BankAccountForm(forms.ModelForm):
 
     class Meta:
         model = BankAccount
-        fields = ('name', 'balance', 'institution')
+        fields = ('name', 'institution', 'account_type', 'balance', 'closing_day', 'payment_due_day')
         widgets = {
             'name': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ex.: Nubank',
+                    'placeholder': 'Ex.: Conta principal',
                     'autofocus': True,
+                }
+            ),
+            'institution': forms.Select(
+                attrs={
+                    'class': 'mt-2 block w-full rounded-xl border border-input bg-background px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                }
+            ),
+            'account_type': forms.Select(
+                attrs={
+                    'class': 'mt-2 block w-full rounded-xl border border-input bg-background px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
                 }
             ),
             'balance': forms.NumberInput(
                 attrs={
-                    'placeholder': 'Ex.: 1000.00',
+                    'placeholder': 'Ex: 1000',
                     'step': '0.01',
                 }
             ),
-            'institution': forms.TextInput(
+            'closing_day': forms.NumberInput(
                 attrs={
-                    'placeholder': 'Ex.: Banco Nubank SA',
+                    'placeholder': 'Ex: 03',
+                    'min': '1',
+                    'max': '31'
+                }
+            ),
+            'payment_due_day': forms.NumberInput(
+                attrs={
+                    'placeholder': 'Ex: 10',
+                    'min': '1',
+                    'max': '31'
                 }
             ),
         }

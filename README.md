@@ -104,6 +104,14 @@ Gerenciamento das categorias de itens financeiros.
 - **Templates:** Estão estruturados em `templates/categories/` (`category_list.html`, `category_form.html`, `category_confirm_delete.html`).
 - **Navegação Integrada:** As funções estão acessíveis na home e as restrições de acesso (LoginRequiredMixin) estão implementadas.
 
+## 🏦 Módulo de Contas Bancárias (`bank_accounts`)
+
+Gerenciamento das contas bancárias dos usuários.
+- **Campos Detalhados:** Configuração do nome da conta, banco (select predefinido), tipo (corrente, poupança, investimento), e saldo inicial.
+- **Dias de Fechamento e Vencimento:** Suporte a datas de vencimento configuráveis pelo usuário (1 a 31).
+- **Isolamento de Dados:** Cada usuário visualiza exclusivamente suas próprias contas.
+- **CRUD Visual:** Interface elegante em Tailwind contendo lista interativa e modais consistentes com o resto da aplicação.
+
 ## 🛠️ Comandos Úteis
 - **Acessar Admin:** `/admin`
 

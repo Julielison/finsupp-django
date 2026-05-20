@@ -32,9 +32,10 @@
                 <table class="min-w-full divide-y divide-slate-200">
                     <thead class="bg-slate-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nome</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Instituição</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Saldo</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Descrição</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Banco</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tipo</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Saldo Inicial</th>
                             <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Ações</th>
                         </tr>
                     </thead>
@@ -42,7 +43,8 @@
                         {% for account in bank_accounts %}
                             <tr class="hover:bg-slate-50/80">
                                 <td class="px-6 py-4 text-sm font-medium text-slate-900">{{ account.name }}</td>
-                                <td class="px-6 py-4 text-sm text-slate-700">{{ account.institution|default:"-" }}</td>
+                                <td class="px-6 py-4 text-sm text-slate-700">{{ account.get_institution_display|default:"-" }}</td>
+                                <td class="px-6 py-4 text-sm text-slate-700">{{ account.get_account_type_display }}</td>
                                 <td class="px-6 py-4 text-sm text-slate-700">R$ {{ account.balance }}</td>
                                 <td class="px-6 py-4 text-right text-sm">
                                     <div class="inline-flex gap-2">
