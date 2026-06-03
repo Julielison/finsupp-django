@@ -1,0 +1,88 @@
+@startuml
+class Usuario {
+    id
+    nome
+    email
+    senha
+    perfis
+}
+
+class Banco {
+    id
+    nome
+}
+
+class Conta {
+    id
+    descricao
+    saldo
+    tipo_conta
+    dia_fechamento
+    dia_vencimento
+}
+
+class Cartao {
+    id
+    descricao
+    ultimos_numeros
+    limite
+    tipo_cartao
+}
+
+class Categoria {
+    id
+    descricao
+    visibilidade
+}
+
+class Transacao {
+    id
+    descricao
+    valor
+    parcelas
+    adicionar_na_fatura
+    data_transacao
+    tipo_transacao
+}
+
+class Assinatura {
+    id
+    descricao
+    preco
+    intervalo
+    status
+}
+
+class Fatura {
+    id
+    data_inicio
+    data_fim
+    data_vencimento
+    valor_total
+    status
+}
+
+class ItemFatura {
+    id
+    valor
+    numero_parcela
+}
+
+' =========================
+' RELACIONAMENTOS
+' =========================
+Usuario "1" -- "*" Conta : possui
+Banco "1" -- "*" Conta : pertence a
+Conta "1" -- "*" Cartao : tem
+Conta "1" -- "*" Transacao : registra
+Conta "1" -- "*" Assinatura : cobra em
+Conta "1" -- "*" Fatura : associada a
+Cartao "1" -- "*" Transacao : utilizado em
+Cartao "1" -- "*" Assinatura : vinculada a
+Cartao "1" -- "*" Fatura : gera
+Categoria "1" -- "*" Transacao : classifica
+Fatura "1" -- "*" ItemFatura : composta por
+Transacao "1" -- "*" ItemFatura : origina
+Assinatura "1" -- "*" ItemFatura : origina
+Transacao "0..1" -- "0..1" Conta : conta destino
+@enduml

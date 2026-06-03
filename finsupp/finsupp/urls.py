@@ -24,6 +24,7 @@ urlpatterns = [
     path('auth/', include('accounts.urls')),
     path('categorias/', include('categories.urls')),
     path('contas/', include('bank_accounts.urls')),
+    path('transacoes/', include('transactions.urls')),
     path('', home, name='home'),
 ]
 

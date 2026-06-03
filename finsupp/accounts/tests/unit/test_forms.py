@@ -7,6 +7,7 @@ User = get_user_model()
 @pytest.mark.django_db
 class TestCustomUserCreationForm:
     
+    @pytest.mark.unit
     def test_form_valido(self):
         data = {
             'first_name': 'Test',
@@ -18,6 +19,7 @@ class TestCustomUserCreationForm:
         form = CustomUserCreationForm(data=data)
         assert form.is_valid() is True
 
+    @pytest.mark.unit
     def test_erro_email_ja_cadastrado(self):
         User.objects.create_user(email='existente@example.com', password='123')
         data = {
@@ -33,6 +35,7 @@ class TestCustomUserCreationForm:
 @pytest.mark.django_db
 class TestCustomAuthenticationForm:
 
+    @pytest.mark.unit
     def test_login_invalido_exibe_mensagem_personalizada(self):
         form = CustomAuthenticationForm(data={'username': 'inexistente@example.com', 'password': 'wrong'})
         assert form.is_valid() is False
