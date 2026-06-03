@@ -29,22 +29,26 @@ def other_user(db):
 
 @pytest.mark.django_db
 class TestCategoryViews:
+    @pytest.mark.integration
     def test_home_exibe_link_para_categorias(self, client, user):
         client.force_login(user)
         response = client.get(reverse('home'))
         assert response.status_code == 200
         assert reverse('categories:list') in response.content.decode()
 
+    @pytest.mark.integration
     def test_lista_exige_login(self, client):
         response = client.get(reverse('categories:list'))
         assert response.status_code == 302
 
+    @pytest.mark.integration
     def test_criar_categoria(self, client, user):
         client.force_login(user)
         response = client.post(reverse('categories:create'), {'description': 'alimentação'})
         assert response.status_code == 302
         assert Category.objects.filter(user=user, description='Alimentação').exists()
 
+    @pytest.mark.integration
     def test_editar_categoria(self, client, user):
         client.force_login(user)
         category = Category.objects.create(user=user, description='Transporte')
@@ -53,6 +57,7 @@ class TestCategoryViews:
         category.refresh_from_db()
         assert category.description == 'Mobilidade'
 
+    @pytest.mark.integration
     def test_excluir_categoria(self, client, user):
         client.force_login(user)
         category = Category.objects.create(user=user, description='Lazer')
@@ -60,6 +65,7 @@ class TestCategoryViews:
         assert response.status_code == 302
         assert not Category.objects.filter(pk=category.pk).exists()
 
+    @pytest.mark.integration
     def test_lista_mostra_apenas_categorias_do_usuario_logado(self, client, user, other_user):
         client.force_login(user)
         Category.objects.create(user=user, description='Casa')

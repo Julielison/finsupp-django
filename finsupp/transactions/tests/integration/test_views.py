@@ -29,16 +29,19 @@ def other_user(db):
 
 @pytest.mark.django_db
 class TestTransactionViews:
+    @pytest.mark.integration
     def test_home_exibe_link_para_transacoes(self, client, user):
         client.force_login(user)
         response = client.get(reverse('home'))
         assert response.status_code == 200
         assert reverse('transactions:list') in response.content.decode()
 
+    @pytest.mark.integration
     def test_lista_exige_login(self, client):
         response = client.get(reverse('transactions:list'))
         assert response.status_code == 302
 
+    @pytest.mark.integration
     def test_criar_transacao(self, client, user):
         client.force_login(user)
         category = Category.objects.create(user=user, description='Mercado')
@@ -56,6 +59,7 @@ class TestTransactionViews:
         assert response.status_code == 302
         assert Transaction.objects.filter(user=user, description='Compra').exists()
 
+    @pytest.mark.integration
     def test_editar_transacao(self, client, user):
         client.force_login(user)
         account = BankAccount.objects.create(user=user, name='Corrente', closing_day=1, payment_due_day=5)
@@ -77,6 +81,7 @@ class TestTransactionViews:
         assert transaction.description == 'Compra Nova'
         assert transaction.amount == 120.00
 
+    @pytest.mark.integration
     def test_excluir_transacao(self, client, user):
         client.force_login(user)
         account = BankAccount.objects.create(user=user, name='Corrente', closing_day=1, payment_due_day=5)
@@ -89,6 +94,7 @@ class TestTransactionViews:
         assert response.status_code == 302
         assert not Transaction.objects.filter(pk=transaction.pk).exists()
 
+    @pytest.mark.integration
     def test_lista_mostra_apenas_transacoes_do_usuario_logado(self, client, user, other_user):
         client.force_login(user)
         account = BankAccount.objects.create(user=user, name='Corrente', closing_day=1, payment_due_day=5)

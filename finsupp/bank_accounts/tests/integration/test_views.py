@@ -29,16 +29,19 @@ def other_user(db):
 
 @pytest.mark.django_db
 class TestBankAccountViews:
+    @pytest.mark.integration
     def test_home_exibe_link_para_contas(self, client, user):
         client.force_login(user)
         response = client.get(reverse('home'))
         assert response.status_code == 200
         assert reverse('bank_accounts:list') in response.content.decode()
 
+    @pytest.mark.integration
     def test_lista_exige_login(self, client):
         response = client.get(reverse('bank_accounts:list'))
         assert response.status_code == 302
 
+    @pytest.mark.integration
     def test_criar_conta_bancaria(self, client, user):
         client.force_login(user)
         data = {
@@ -53,6 +56,7 @@ class TestBankAccountViews:
         assert response.status_code == 302
         assert BankAccount.objects.filter(user=user, name='Conta Nova').exists()
 
+    @pytest.mark.integration
     def test_editar_conta_bancaria(self, client, user):
         client.force_login(user)
         account = BankAccount.objects.create(
@@ -77,6 +81,7 @@ class TestBankAccountViews:
         assert account.institution == 'ITAU'
         assert account.account_type == 'SAVINGS'
 
+    @pytest.mark.integration
     def test_excluir_conta_bancaria(self, client, user):
         client.force_login(user)
         account = BankAccount.objects.create(
@@ -89,6 +94,7 @@ class TestBankAccountViews:
         assert response.status_code == 302
         assert not BankAccount.objects.filter(pk=account.pk).exists()
 
+    @pytest.mark.integration
     def test_lista_mostra_apenas_contas_do_usuario_logado(self, client, user, other_user):
         client.force_login(user)
         BankAccount.objects.create(user=user, name='Minha Conta', closing_day=1, payment_due_day=1)

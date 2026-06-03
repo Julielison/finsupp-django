@@ -25,6 +25,8 @@ jobs:
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
 
       - name: Install dependencies
         run: |
@@ -36,9 +38,11 @@ jobs:
           BREVO_SMTP_LOGIN: dummy_test_user
           BREVO_SMTP_KEY: dummy_test_key
         run: |
-          pytest tests/unit \
+          pytest \
+            -m unit \
             --cov=finsupp \
             --cov-report=term-missing \
+            --cov-fail-under=80 \
             --tb=short
 
   integration-tests:
@@ -62,6 +66,8 @@ jobs:
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
 
       - name: Install dependencies
         run: |
@@ -73,5 +79,9 @@ jobs:
           BREVO_SMTP_LOGIN: dummy_test_user
           BREVO_SMTP_KEY: dummy_test_key
         run: |
-          pytest tests/integration \
-            --tb=short
+          pytest \
+            -m integration \
+            --tb=short \
+            --cov=finsupp \
+            --cov-report=term-missing \
+            --cov-fail-under=80
