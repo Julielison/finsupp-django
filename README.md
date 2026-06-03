@@ -147,4 +147,11 @@ Ou, gerar um relatório visual HTML interativo:
 ```bash
 pytest --cov=. --cov-report=html
 ```
-Um diretório `htmlcov/` será criado com um arquivo `index.html`. Abra-o no navegador e veja detalhadamente todos os arquivos e linhas de códigos que estão ou não cobertos.
+Um diretório `htmlcov/` será criado com um arquivo `index.html`. Abra-o no navegador e veja detalhadamente todos os arquivos e linhas de códigos que estão ou não cobertos.## 💸 Módulo de Transações (`transactions`)
+
+Gerenciamento das receitas e despesas dos usuários.
+- **Associação Completa:** Vincula transações à conta bancária e à categoria específica.
+- **Isolamento de Dados:** Cada usuário visualiza apenas suas próprias transações.
+- **Tipos Suportados:** Inclusão de receitas (`INCOME`) e despesas (`EXPENSE`).
+- **Templates:** Utiliza Tailwind e modais consistentes localizados em `templates/transactions/`.
+- **Filtros e Visualização:** Lista de transações ordenadas cronologicamente com sumário visual (ex. Receitas em verde, Despesas em vermelho).

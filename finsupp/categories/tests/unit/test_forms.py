@@ -9,17 +9,20 @@ User = get_user_model()
 
 @pytest.mark.django_db
 class TestCategoryForm:
+    @pytest.mark.unit
     def test_form_valido(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         form = CategoryForm(user=user, data={'description': 'alimentação'})
         assert form.is_valid() is True
 
+    @pytest.mark.unit
     def test_form_normaliza_descricao(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         form = CategoryForm(user=user, data={'description': '  agua e luz  '})
         assert form.is_valid() is True
         assert form.cleaned_data['description'] == 'Agua E Luz'
 
+    @pytest.mark.unit
     def test_form_bloqueia_duplicado(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         Category.objects.create(user=user, description='Alimentação')
@@ -27,6 +30,7 @@ class TestCategoryForm:
         assert form.is_valid() is False
         assert 'Já existe uma categoria com esta descrição.' in form.errors['description']
 
+    @pytest.mark.unit
     def test_form_permite_mesma_descricao_para_usuario_diferente(self):
         user_one = User.objects.create_user(email='one@example.com', password='StrongPass123')
         user_two = User.objects.create_user(email='two@example.com', password='StrongPass123')
@@ -35,6 +39,7 @@ class TestCategoryForm:
         form = CategoryForm(user=user_two, data={'description': 'ALIMENTAÇÃO'})
         assert form.is_valid() is True
 
+    @pytest.mark.unit
     def test_form_bloqueia_mesma_descricao_na_edicao(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         category = Category.objects.create(user=user, description='Transporte')

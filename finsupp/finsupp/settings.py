@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'categories',
     'accounts',
     'bank_accounts',
+    'transactions',
 ]
 
 MIDDLEWARE = [

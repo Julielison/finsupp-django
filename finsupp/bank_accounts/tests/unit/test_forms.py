@@ -9,6 +9,7 @@ User = get_user_model()
 
 @pytest.mark.django_db
 class TestBankAccountForm:
+    @pytest.mark.unit
     def test_form_valido(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         data = {
@@ -22,6 +23,7 @@ class TestBankAccountForm:
         form = BankAccountForm(user=user, data=data)
         assert form.is_valid() is True
 
+    @pytest.mark.unit
     def test_form_ignora_espacos_no_name(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         data = {
@@ -36,6 +38,7 @@ class TestBankAccountForm:
         assert form.is_valid() is True
         assert form.cleaned_data['name'] == 'Minha Conta'
 
+    @pytest.mark.unit
     def test_form_bloqueia_duplicado(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         BankAccount.objects.create(
@@ -59,6 +62,7 @@ class TestBankAccountForm:
         assert form.is_valid() is False
         assert 'Já existe uma conta bancária com este nome.' in form.errors['name']
 
+    @pytest.mark.unit
     def test_form_permite_mesmo_nome_para_usuario_diferente(self):
         user_one = User.objects.create_user(email='one@example.com', password='StrongPass123')
         user_two = User.objects.create_user(email='two@example.com', password='StrongPass123')
@@ -81,6 +85,7 @@ class TestBankAccountForm:
         form = BankAccountForm(user=user_two, data=data)
         assert form.is_valid() is True
 
+    @pytest.mark.unit
     def test_form_bloqueia_mesmo_nome_na_edicao_se_pertencer_a_outra_conta(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         BankAccount.objects.create(user=user, name='Conta A', closing_day=1, payment_due_day=10)
@@ -98,6 +103,7 @@ class TestBankAccountForm:
         assert form.is_valid() is False
         assert 'Já existe uma conta bancária com este nome.' in form.errors['name']
 
+    @pytest.mark.unit
     def test_form_dias_invalidos(self):
         user = User.objects.create_user(email='user@example.com', password='StrongPass123')
         data = {
