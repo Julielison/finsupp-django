@@ -34,6 +34,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Unit Tests
+        working-directory: ./finsupp
         env:
           BREVO_SMTP_LOGIN: dummy_test_user
           BREVO_SMTP_KEY: dummy_test_key
@@ -75,6 +76,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Integration Tests
+        working-directory: ./finsupp
         env:
           BREVO_SMTP_LOGIN: dummy_test_user
           BREVO_SMTP_KEY: dummy_test_key
