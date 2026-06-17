@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Faturas - FinSupp{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between">
+    <h1 class="text-2xl font-semibold">Faturas</h1>
+    <div class="space-x-2">
+        <a href="?status=ALL" class="px-3 py-1 rounded {% if status_filter == 'ALL' %}bg-indigo-100{% else %}bg-white{% endif %}">Todas</a>
+        <a href="?status=OPEN" class="px-3 py-1 rounded {% if status_filter == 'OPEN' %}bg-indigo-100{% else %}bg-white{% endif %}">Abertas</a>
+        <a href="?status=PAID" class="px-3 py-1 rounded {% if status_filter == 'PAID' %}bg-indigo-100{% else %}bg-white{% endif %}">Pagas</a>
+        <a href="?status=CANCELLED" class="px-3 py-1 rounded {% if status_filter == 'CANCELLED' %}bg-indigo-100{% else %}bg-white{% endif %}">Canceladas</a>
+    </div>
+</div>
+
+<div class="mt-6 space-y-4">
+    {% for bill in bills %}
+        <a href="{% url 'bills:detail' bill.pk %}" class="block rounded-xl border bg-white p-4 hover:shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="font-medium">{{ bill.description|default:'-' }}</p>
+                    <p class="text-sm text-slate-500">Vencimento: {{ bill.due_date }}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">R$ {{ bill.total }}</p>
+                    <p class="text-sm text-slate-500">Status: {{ bill.get_status_display }}</p>
+                </div>
+            </div>
+        </a>
+    {% empty %}
+        <div class="rounded-xl border bg-white p-4">Nenhuma fatura encontrada.</div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+    <div class="mt-6 flex items-center justify-between">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 rounded bg-white">Anterior</a>
+        {% endif %}
+        <span class="text-sm text-slate-500">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 rounded bg-white">Próxima</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% endblock %}

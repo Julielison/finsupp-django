@@ -4,3 +4,5 @@ pytest
 pytest-django
 python-decouple==3.8
 pytest-cov
+django-crontab
+djangorestframework>=3.15
