@@ -25,6 +25,8 @@ urlpatterns = [
     path('categorias/', include('categories.urls')),
     path('contas/', include('bank_accounts.urls')),
     path('transacoes/', include('transactions.urls')),
+    path('faturas/api/', include('bills.urls')),
+    path('faturas/', include(('bills.front_urls', 'bills'), namespace='bills')),
     path('', home, name='home'),
 ]
 

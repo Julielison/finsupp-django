@@ -44,7 +44,18 @@ INSTALLED_APPS = [
     'accounts',
     'bank_accounts',
     'transactions',
+    'bills',
 ]
+
+# Cron jobs: generate bills daily at 02:00 (enabled only if django_crontab is installed)
+try:
+    import django_crontab  # noqa: F401
+    INSTALLED_APPS.append('django_crontab')
+    CRONJOBS = [
+        ('0 2 * * *', 'django.core.management.call_command', ['generate_bills'])
+    ]
+except Exception:
+    CRONJOBS = []
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
