@@ -29,6 +29,14 @@ class Bill(models.Model):
         self.paid_date = timezone.now().date()
         self.save()
 
+    def cancel(self, canceled_by=None):
+        if self.status == self.Status.PAID:
+            raise ValueError("Cannot cancel a paid bill")
+        if self.status == self.Status.CANCELED:
+            raise ValueError("Bill already canceled")
+        self.status = self.Status.CANCELED
+        self.save()
+
 
 class BillItem(models.Model):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name="items")

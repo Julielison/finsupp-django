@@ -42,4 +42,11 @@ class BillDetailView(LoginRequiredMixin, DetailView):
                 messages.success(request, 'Fatura paga com sucesso.')
             except Exception as exc:
                 messages.error(request, f'Erro ao pagar fatura: {exc}')
+        if 'cancel' in request.POST:
+            try:
+                # use model-level cancel method
+                self.object.cancel(canceled_by=request.user)
+                messages.success(request, 'Fatura cancelada com sucesso.')
+            except Exception as exc:
+                messages.error(request, f'Erro ao cancelar fatura: {exc}')
         return redirect(reverse('bills:detail', args=[self.object.pk]))
