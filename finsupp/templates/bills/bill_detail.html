@@ -5,6 +5,9 @@
 {% block content %}
 <div class="flex items-center justify-between">
     <h1 class="text-2xl font-semibold">{{ bill.description|default:'Fatura' }}</h1>
+    <div class="space-x-2">
+        <a href="{% url 'bills:list' %}" class="rounded bg-white px-3 py-1 text-sm">← Voltar</a>
+    </div>
     <div class="text-right">
         <p class="text-lg font-semibold">R$ {{ bill.total }}</p>
         <p class="text-sm text-slate-500">Vencimento: {{ bill.due_date }}</p>
@@ -30,13 +33,21 @@
 </div>
 
 <div class="mt-6">
-    {% if bill.status != 'PAID' %}
-        <form method="post">
+    {% if bill.status != 'PAID' and bill.status != 'CANCELED' %}
+        <form method="post" class="inline-block mr-2">
             {% csrf_token %}
             <button type="submit" name="pay" class="rounded bg-indigo-600 px-4 py-2 text-white">Pagar fatura</button>
         </form>
+        <form method="post" onsubmit="return confirm('Confirma cancelar esta fatura?');" class="inline-block">
+            {% csrf_token %}
+            <button type="submit" name="cancel" class="rounded bg-red-600 px-4 py-2 text-white">Cancelar fatura</button>
+        </form>
     {% else %}
-        <div class="rounded-xl border bg-green-50 p-4 text-green-800">Esta fatura já foi paga.</div>
+        {% if bill.status == 'PAID' %}
+            <div class="rounded-xl border bg-green-50 p-4 text-green-800">Esta fatura já foi paga.</div>
+        {% else %}
+            <div class="rounded-xl border bg-gray-50 p-4 text-gray-800">Esta fatura foi cancelada.</div>
+        {% endif %}
     {% endif %}
 </div>
 
