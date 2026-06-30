@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
@@ -10,11 +11,11 @@ class Category(models.Model):
         null=True,
         blank=True,
     )
-    description = models.CharField('descrição', max_length=15)
+    description = models.CharField(_('descrição'), max_length=15)
 
     class Meta:
-        verbose_name = 'categoria'
-        verbose_name_plural = 'categorias'
+        verbose_name = _('categoria')
+        verbose_name_plural = _('categorias')
         ordering = ['description']
         constraints = [
             models.UniqueConstraint(fields=['user', 'description'], name='unique_category_per_user'),

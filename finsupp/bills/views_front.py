@@ -33,6 +33,9 @@ class BillDetailView(LoginRequiredMixin, DetailView):
     template_name = 'bills/bill_detail.html'
     context_object_name = 'bill'
 
+    def get_queryset(self):
+        return Bill.objects.filter(account__user=self.request.user)
+
     def post(self, request, *args, **kwargs):
         # handle pay action
         self.object = self.get_object()

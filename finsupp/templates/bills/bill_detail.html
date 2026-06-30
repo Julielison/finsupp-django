@@ -1,54 +1,85 @@
 {% extends 'base.html' %}
 
-{% block title %}Fatura - {{ bill.title }}{% endblock %}
+{% block title %}Fatura - {{ bill.description|default:'Fatura' }}{% endblock %}
 
 {% block content %}
-<div class="flex items-center justify-between">
-    <h1 class="text-2xl font-semibold">{{ bill.description|default:'Fatura' }}</h1>
-    <div class="space-x-2">
-        <a href="{% url 'bills:list' %}" class="rounded bg-white px-3 py-1 text-sm">← Voltar</a>
+<section class="mx-auto max-w-4xl space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+            <a href="{% url 'bills:list' %}" class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 mb-3 transition-colors">
+                &larr; Voltar para Faturas
+            </a>
+            <h1 class="text-3xl font-bold tracking-tight text-slate-900">{{ bill.description|default:'Detalhes da Fatura' }}</h1>
+        </div>
+        <div>
+            {% if bill.status == 'OPEN' %}
+                <span class="inline-flex items-center rounded-full bg-yellow-50 px-3 py-1 text-sm font-semibold text-yellow-800 ring-1 ring-inset ring-yellow-600/20 shadow-sm">Status: Aberta</span>
+            {% elif bill.status == 'PAID' %}
+                <span class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-sm font-semibold text-green-700 ring-1 ring-inset ring-green-600/20 shadow-sm">Status: Paga</span>
+            {% else %}
+                <span class="inline-flex items-center rounded-full bg-slate-50 px-3 py-1 text-sm font-semibold text-slate-600 ring-1 ring-inset ring-slate-500/10 shadow-sm">Status: Cancelada</span>
+            {% endif %}
+        </div>
     </div>
-    <div class="text-right">
-        <p class="text-lg font-semibold">R$ {{ bill.total }}</p>
-        <p class="text-sm text-slate-500">Vencimento: {{ bill.due_date }}</p>
-        <p class="text-sm text-slate-500">Status: {{ bill.get_status_display }}</p>
+
+    <!-- Info Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+            <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Valor Total</p>
+            <p class="mt-2 text-4xl font-bold text-slate-900">R$ {{ bill.total }}</p>
+        </div>
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+            <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Vencimento</p>
+            <p class="mt-2 text-3xl font-bold text-slate-900">{{ bill.due_date|date:"d/m/Y" }}</p>
+        </div>
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+            <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Conta Associada</p>
+            <p class="mt-2 text-xl font-bold text-slate-900">{{ bill.account.name }}</p>
+        </div>
     </div>
-</div>
 
-<div class="mt-6 rounded-xl border bg-white p-4">
-    <h3 class="font-medium">Itens</h3>
-    <ul class="mt-2 space-y-2">
-        {% for item in bill.items.all %}
-            <li class="flex items-center justify-between">
-                <div>
-                    <p class="font-medium">{{ item.description }}</p>
-                    <p class="text-sm text-slate-500">Quantidade: {{ item.quantity }}</p>
-                </div>
-                <div class="text-right">R$ {{ item.amount }}</div>
-            </li>
-        {% empty %}
-            <li class="text-sm text-slate-500">Sem itens.</li>
-        {% endfor %}
-    </ul>
-</div>
+    <!-- Items -->
+    <div class="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden mt-8">
+        <div class="border-b border-slate-200 bg-slate-50 px-6 py-5">
+            <h3 class="font-semibold text-slate-900 text-lg">Itens na Fatura</h3>
+        </div>
+        <ul class="divide-y divide-slate-100">
+            {% for item in bill.items.all %}
+                <li class="flex items-center justify-between px-6 py-5 hover:bg-slate-50 transition-colors">
+                    <div>
+                        <p class="font-semibold text-slate-900">{{ item.description }}</p>
+                        {% if item.transaction %}
+                            <p class="text-sm text-slate-500 mt-1">Data: {{ item.transaction.date|date:"d/m/Y" }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="text-right text-lg font-semibold text-slate-900">
+                        R$ {{ item.amount }}
+                    </div>
+                </li>
+            {% empty %}
+                <li class="px-6 py-10 text-center">
+                    <p class="text-sm font-medium text-slate-500">Nenhuma despesa atrelada a esta fatura ainda.</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<div class="mt-6">
-    {% if bill.status != 'PAID' and bill.status != 'CANCELED' %}
-        <form method="post" class="inline-block mr-2">
-            {% csrf_token %}
-            <button type="submit" name="pay" class="rounded bg-indigo-600 px-4 py-2 text-white">Pagar fatura</button>
-        </form>
-        <form method="post" onsubmit="return confirm('Confirma cancelar esta fatura?');" class="inline-block">
-            {% csrf_token %}
-            <button type="submit" name="cancel" class="rounded bg-red-600 px-4 py-2 text-white">Cancelar fatura</button>
-        </form>
-    {% else %}
-        {% if bill.status == 'PAID' %}
-            <div class="rounded-xl border bg-green-50 p-4 text-green-800">Esta fatura já foi paga.</div>
-        {% else %}
-            <div class="rounded-xl border bg-gray-50 p-4 text-gray-800">Esta fatura foi cancelada.</div>
+    <!-- Actions -->
+    <div class="mt-8 flex justify-end gap-4 pt-4 border-t border-slate-200">
+        {% if bill.status != 'PAID' and bill.status != 'CANCELED' %}
+            <form method="post" onsubmit="return confirm('Confirma cancelar esta fatura?');">
+                {% csrf_token %}
+                <button type="submit" name="cancel" class="inline-flex justify-center rounded-xl px-6 py-3.5 text-sm font-semibold text-red-600 hover:bg-red-50 border border-red-200 transition-colors">
+                    Cancelar Fatura
+                </button>
+            </form>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="pay" class="inline-flex justify-center rounded-xl bg-indigo-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 transition-all">
+                    Marcar como Paga
+                </button>
+            </form>
         {% endif %}
-    {% endif %}
-</div>
-
+    </div>
+</section>
 {% endblock %}

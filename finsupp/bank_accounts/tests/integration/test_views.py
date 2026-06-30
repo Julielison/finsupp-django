@@ -50,7 +50,11 @@ class TestBankAccountViews:
             'account_type': 'CHECKING',
             'balance': '150.00',
             'closing_day': 10,
-            'payment_due_day': 20
+            'payment_due_day': 20,
+            'cards-TOTAL_FORMS': '0',
+            'cards-INITIAL_FORMS': '0',
+            'cards-MIN_NUM_FORMS': '0',
+            'cards-MAX_NUM_FORMS': '1000',
         }
         response = client.post(reverse('bank_accounts:create'), data)
         assert response.status_code == 302
@@ -72,7 +76,11 @@ class TestBankAccountViews:
             'account_type': 'SAVINGS',
             'balance': '99.99',
             'closing_day': 1,
-            'payment_due_day': 15
+            'payment_due_day': 15,
+            'cards-TOTAL_FORMS': '0',
+            'cards-INITIAL_FORMS': '0',
+            'cards-MIN_NUM_FORMS': '0',
+            'cards-MAX_NUM_FORMS': '1000',
         }
         response = client.post(reverse('bank_accounts:update', args=[account.pk]), data)
         assert response.status_code == 302

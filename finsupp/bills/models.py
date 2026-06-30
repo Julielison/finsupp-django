@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from bank_accounts.models import BankAccount as Account
 from transactions.models import Transaction
@@ -8,9 +9,9 @@ from transactions.models import Transaction
 
 class Bill(models.Model):
     class Status(models.TextChoices):
-        OPEN = "OPEN"
-        PAID = "PAID"
-        CANCELED = "CANCELED"
+        OPEN = "OPEN", _("OPEN")
+        PAID = "PAID", _("PAID")
+        CANCELED = "CANCELED", _("CANCELED")
 
     account = models.ForeignKey(Account, on_delete=models.PROTECT, related_name="bills")
     total = models.DecimalField(max_digits=12, decimal_places=2)
@@ -23,7 +24,7 @@ class Bill(models.Model):
 
     def pay(self, paid_by=None, payment_transaction: Transaction = None):
         if self.status == self.Status.PAID:
-            raise ValueError("Bill already paid")
+            raise ValueError(_("Bill already paid"))
         # If payment_transaction provided, link items accordingly handled elsewhere
         self.status = self.Status.PAID
         self.paid_date = timezone.now().date()
@@ -31,9 +32,9 @@ class Bill(models.Model):
 
     def cancel(self, canceled_by=None):
         if self.status == self.Status.PAID:
-            raise ValueError("Cannot cancel a paid bill")
+            raise ValueError(_("Cannot cancel a paid bill"))
         if self.status == self.Status.CANCELED:
-            raise ValueError("Bill already canceled")
+            raise ValueError(_("Bill already canceled"))
         self.status = self.Status.CANCELED
         self.save()
 

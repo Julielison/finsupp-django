@@ -20,14 +20,24 @@
 
             <div class="space-y-4">
                 {% for field in form %}
-                    <div>
-                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-slate-700">
-                            {{ field.label }}
-                        </label>
-                        {{ field.errors }}
-                        <div class="mt-2">
-                            {{ field }}
-                        </div>
+                    <div id="container-{{ field.name }}">
+                        {% if field.name == 'is_add_to_bill' %}
+                            <div class="flex items-center gap-2 mt-2">
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-slate-700">
+                                    {{ field.label }}
+                                </label>
+                            </div>
+                            {{ field.errors }}
+                        {% else %}
+                            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-slate-700">
+                                {{ field.label }}
+                            </label>
+                            {{ field.errors }}
+                            <div class="mt-2">
+                                {{ field }}
+                            </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
@@ -46,8 +56,51 @@
 
 <!-- Adicionando classe nas tags de input pelo JS, já que não temos um django-widget-tweaks configurado nativamente no core -->
 <script>
-    document.querySelectorAll('input, select').forEach(el => {
+    document.querySelectorAll('input:not([type="checkbox"]), select').forEach(el => {
         el.classList.add('block', 'w-full', 'rounded-xl', 'border', 'border-slate-300', 'bg-white', 'px-3', 'py-2.5', 'text-slate-900', 'shadow-sm', 'focus:border-indigo-500', 'focus:outline-none', 'focus:ring-2', 'focus:ring-indigo-200');
     });
+    
+    document.querySelectorAll('input[type="checkbox"]').forEach(el => {
+        el.classList.add('h-5', 'w-5', 'rounded', 'border-slate-300', 'text-indigo-600', 'focus:ring-indigo-600', 'cursor-pointer');
+    });
+
+    const cardTypes = {
+        {% for card in form.fields.card.queryset %}
+        "{{ card.id }}": "{{ card.type }}",
+        {% endfor %}
+    };
+
+    const cardSelect = document.getElementById('id_card');
+    const addToBillContainer = document.getElementById('container-is_add_to_bill');
+    const addToBillCheckbox = document.getElementById('id_is_add_to_bill');
+    const installmentsContainer = document.getElementById('container-installments');
+
+    function updateVisibility() {
+        if (!cardSelect || !addToBillContainer || !installmentsContainer) return;
+        
+        const selectedCardId = cardSelect.value;
+        const cardType = cardTypes[selectedCardId];
+        
+        if (cardType === 'CREDIT' || cardType === 'BOTH') {
+            addToBillContainer.classList.remove('hidden');
+            
+            if (addToBillCheckbox.checked) {
+                installmentsContainer.classList.remove('hidden');
+            } else {
+                installmentsContainer.classList.add('hidden');
+            }
+        } else {
+            addToBillContainer.classList.add('hidden');
+            installmentsContainer.classList.add('hidden');
+            if(addToBillCheckbox) addToBillCheckbox.checked = false;
+        }
+    }
+
+    if (cardSelect && addToBillCheckbox) {
+        cardSelect.addEventListener('change', updateVisibility);
+        addToBillCheckbox.addEventListener('change', updateVisibility);
+        // Rodar logo que a página carregar para configurar o estado inicial (importante na edição)
+        updateVisibility();
+    }
 </script>
 {% endblock %}
