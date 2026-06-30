@@ -6,3 +6,4 @@ python-decouple==3.8
 pytest-cov
 django-crontab
 djangorestframework>=3.15
+python-dateutil
