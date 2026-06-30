@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Faturas - FinSupp{% endblock %}
+{% block title %}{% trans "Faturas - FinSupp" %}{% endblock %}
 
 {% block content %}
 <section class="space-y-8 max-w-7xl mx-auto">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
         <div>
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">FinSupp / Finanças</p>
-            <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900">Faturas</h1>
-            <p class="mt-2 text-sm text-slate-600">Gerencie todas as suas faturas de cartões e contas.</p>
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">{% trans "FinSupp / Finanças" %}</p>
+            <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900">{% trans "Faturas" %}</h1>
+            <p class="mt-2 text-sm text-slate-600">{% trans "Gerencie todas as suas faturas de cartões e contas." %}</p>
         </div>
         
         <div class="inline-flex rounded-xl bg-slate-100 p-1.5 shadow-inner">
-            <a href="?status=ALL" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'ALL' or not status_filter %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">Todas</a>
-            <a href="?status=OPEN" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'OPEN' %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">Abertas</a>
-            <a href="?status=PAID" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'PAID' %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">Pagas</a>
-            <a href="?status=CANCELED" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'CANCELED' %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">Canceladas</a>
+            <a href="?status=ALL" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'ALL' or not status_filter %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">{% trans "Todas" %}</a>
+            <a href="?status=OPEN" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'OPEN' %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">{% trans "Abertas" %}</a>
+            <a href="?status=PAID" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'PAID' %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">{% trans "Pagas" %}</a>
+            <a href="?status=CANCELED" class="rounded-lg px-5 py-2 text-sm font-semibold transition-all {% if status_filter == 'CANCELED' %}bg-white text-indigo-600 shadow-sm{% else %}text-slate-600 hover:text-slate-900{% endif %}">{% trans "Canceladas" %}</a>
         </div>
     </div>
 
@@ -24,17 +25,17 @@
             <a href="{% url 'bills:detail' bill.pk %}" class="group relative flex flex-col rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:border-indigo-200">
                 <div class="flex items-center justify-between mb-5">
                     {% if bill.status == 'OPEN' %}
-                        <span class="inline-flex items-center rounded-full bg-yellow-50 px-3 py-1 text-xs font-semibold text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Aberta</span>
+                        <span class="inline-flex items-center rounded-full bg-yellow-50 px-3 py-1 text-xs font-semibold text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{% trans "Aberta" %}</span>
                     {% elif bill.status == 'PAID' %}
-                        <span class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700 ring-1 ring-inset ring-green-600/20">Paga</span>
+                        <span class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700 ring-1 ring-inset ring-green-600/20">{% trans "Paga" %}</span>
                     {% else %}
-                        <span class="inline-flex items-center rounded-full bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-inset ring-slate-500/10">Cancelada</span>
+                        <span class="inline-flex items-center rounded-full bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-inset ring-slate-500/10">{% trans "Cancelada" %}</span>
                     {% endif %}
                     
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 group-hover:text-indigo-600 transition-colors">Vence: {{ bill.due_date|date:"d/m" }}</span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 group-hover:text-indigo-600 transition-colors">{% trans "Vence:" %} {{ bill.due_date|date:"d/m" }}</span>
                 </div>
                 
-                <h3 class="text-xl font-bold text-slate-900">{{ bill.description|default:'Fatura Padrão' }}</h3>
+                <h3 class="text-xl font-bold text-slate-900">{% if bill.description %}{{ bill.description }}{% else %}{% trans "Fatura Padrão" %}{% endif %}</h3>
                 <p class="text-sm font-medium text-slate-500 mt-1 line-clamp-1">{{ bill.account.name }}</p>
                 
                 <div class="mt-8 flex items-end justify-between">
@@ -55,8 +56,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-slate-900">Nenhuma fatura encontrada</h3>
-                <p class="mt-2 text-sm text-slate-500">Experimente alterar os filtros acima ou crie novas transações para o cartão de crédito.</p>
+                <h3 class="text-lg font-semibold text-slate-900">{% trans "Nenhuma fatura encontrada" %}</h3>
+                <p class="mt-2 text-sm text-slate-500">{% trans "Experimente alterar os filtros acima ou crie novas transações para o cartão de crédito." %}</p>
             </div>
         {% endfor %}
     </div>
@@ -65,17 +66,17 @@
         <div class="flex items-center justify-between border-t border-slate-200 pt-8 mt-4">
             {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}&status={{ status_filter }}" class="inline-flex items-center rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 transition-all">
-                    &larr; Anterior
+                    &larr; {% trans "Anterior" %}
                 </a>
             {% else %}
                 <div></div>
             {% endif %}
             
-            <span class="text-sm font-medium text-slate-500">Página <span class="font-bold text-slate-900">{{ page_obj.number }}</span> de <span class="font-bold text-slate-900">{{ page_obj.paginator.num_pages }}</span></span>
+            <span class="text-sm font-medium text-slate-500">{% trans "Página" %} <span class="font-bold text-slate-900">{{ page_obj.number }}</span> {% trans "de" %} <span class="font-bold text-slate-900">{{ page_obj.paginator.num_pages }}</span></span>
             
             {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}&status={{ status_filter }}" class="inline-flex items-center rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 transition-all">
-                    Próxima &rarr;
+                    {% trans "Próxima" %} &rarr;
                 </a>
             {% else %}
                 <div></div>

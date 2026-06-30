@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="pt-BR" class="h-full bg-slate-50">
 <head>
@@ -47,21 +48,38 @@
                     </div>
                     <div>
                         <p class="text-lg font-semibold leading-6 tracking-tight text-slate-900">FinSupp</p>
-                        <p class="text-sm text-slate-500">Controle financeiro pessoal</p>
+                        <p class="text-sm text-slate-500">{% trans "Controle financeiro pessoal" %}</p>
                     </div>
                 </a>
 
                 <nav class="flex items-center gap-2 text-sm font-medium">
-                    <a href="{% url 'home' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Início</a>
-                    <a href="{% url 'categories:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Categorias</a>
-                    <a href="{% url 'bank_accounts:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Contas</a>
-                    <a href="{% url 'transactions:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Transações</a>
-                    <a href="{% url 'bills:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Faturas</a>
+                    <a href="{% url 'home' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">{% trans "Início" %}</a>
+                    <a href="{% url 'categories:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">{% trans "Categorias" %}</a>
+                    <a href="{% url 'bank_accounts:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">{% trans "Contas" %}</a>
+                    <a href="{% url 'transactions:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">{% trans "Transações" %}</a>
+                    <a href="{% url 'bills:list' %}" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900">{% trans "Faturas" %}</a>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'accounts:logout' %}" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">Sair</a>
+                        <a href="{% url 'accounts:logout' %}" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">{% trans "Sair" %}</a>
                     {% else %}
-                        <a href="{% url 'accounts:login' %}" class="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500">Entrar</a>
+                        <a href="{% url 'accounts:login' %}" class="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500">{% trans "Entrar" %}</a>
                     {% endif %}
+
+                    <div class="ml-2 border-l border-slate-200 pl-4 flex items-center">
+                        <form action="{% url 'set_language' %}" method="post" class="m-0 p-0 flex items-center">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <select name="language" onchange="this.form.submit()" class="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm outline-none hover:bg-slate-50 focus:ring-2 focus:ring-indigo-500 cursor-pointer appearance-none transition-colors">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                                        {{ language.name_local|title }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
                 </nav>
             </div>
         </header>

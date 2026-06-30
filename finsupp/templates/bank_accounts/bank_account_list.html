@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Contas Bancárias - FinSupp{% endblock %}
+{% block title %}{% trans "Contas Bancárias - FinSupp" %}{% endblock %}
 
 {% block content %}
 <section class="space-y-6">
     <div class="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:flex-row lg:items-end lg:justify-between">
         <div>
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">FinSupp / Contas Bancárias</p>
-            <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Gerenciar contas bancárias</h1>
-            <p class="mt-2 text-sm text-slate-600">Crie, edite e remova contas de forma simples e rápida.</p>
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">{% trans "FinSupp / Contas Bancárias" %}</p>
+            <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">{% trans "Gerenciar contas bancárias" %}</h1>
+            <p class="mt-2 text-sm text-slate-600">{% trans "Crie, edite e remova contas de forma simples e rápida." %}</p>
         </div>
         <a href="{% url 'bank_accounts:create' %}" class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
-            Nova conta
+            {% trans "Nova conta" %}
         </a>
     </div>
 
     <form method="get" class="grid gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 lg:grid-cols-3">
         <div>
-            <label for="name" class="block text-sm font-medium text-slate-700">Nome</label>
-            <input type="text" name="name" id="name" value="{{ request.GET.name }}" placeholder="Filtrar por nome" class="mt-2 block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+            <label for="name" class="block text-sm font-medium text-slate-700">{% trans "Nome" %}</label>
+            <input type="text" name="name" id="name" value="{{ request.GET.name }}" placeholder="{% trans 'Filtrar por nome' %}" class="mt-2 block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200">
         </div>
         <div class="flex items-end gap-3 lg:col-start-3">
-            <button type="submit" class="inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800">Filtrar</button>
-            <a href="{% url 'bank_accounts:list' %}" class="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">Limpar</a>
+            <button type="submit" class="inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800">{% trans "Filtrar" %}</button>
+            <a href="{% url 'bank_accounts:list' %}" class="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">{% trans "Limpar" %}</a>
         </div>
     </form>
 
@@ -32,11 +33,11 @@
                 <table class="min-w-full divide-y divide-slate-200">
                     <thead class="bg-slate-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Descrição</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Banco</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tipo</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Saldo Inicial</th>
-                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Ações</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{% trans "Descrição" %}</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{% trans "Banco" %}</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{% trans "Tipo" %}</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{% trans "Saldo Inicial" %}</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">{% trans "Ações" %}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200 bg-white">
@@ -48,8 +49,8 @@
                                 <td class="px-6 py-4 text-sm text-slate-700">R$ {{ account.balance }}</td>
                                 <td class="px-6 py-4 text-right text-sm">
                                     <div class="inline-flex gap-2">
-                                        <a href="{% url 'bank_accounts:update' account.pk %}" class="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-700 hover:bg-slate-50">Editar</a>
-                                        <a href="{% url 'bank_accounts:delete' account.pk %}" class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 font-medium text-red-700 hover:bg-red-100">Excluir</a>
+                                        <a href="{% url 'bank_accounts:update' account.pk %}" class="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-700 hover:bg-slate-50">{% trans "Editar" %}</a>
+                                        <a href="{% url 'bank_accounts:delete' account.pk %}" class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 font-medium text-red-700 hover:bg-red-100">{% trans "Excluir" %}</a>
                                     </div>
                                 </td>
                             </tr>
@@ -59,10 +60,10 @@
             </div>
         {% else %}
             <div class="px-6 py-16 text-center">
-                <h2 class="text-lg font-semibold text-slate-900">Nenhuma conta bancária encontrada</h2>
-                <p class="mt-2 text-sm text-slate-600">Crie a primeira conta bancária para começar a organizar as informações.</p>
+                <h2 class="text-lg font-semibold text-slate-900">{% trans "Nenhuma conta bancária encontrada" %}</h2>
+                <p class="mt-2 text-sm text-slate-600">{% trans "Crie a primeira conta bancária para começar a organizar as informações." %}</p>
                 <div class="mt-6">
-                    <a href="{% url 'bank_accounts:create' %}" class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">Criar conta</a>
+                    <a href="{% url 'bank_accounts:create' %}" class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">{% trans "Criar conta" %}</a>
                 </div>
             </div>
         {% endif %}
@@ -71,14 +72,14 @@
     {% if is_paginated %}
         <div class="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
             <div>
-                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                {% blocktrans %}Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}{% endblocktrans %}
             </div>
             <div class="flex gap-2">
                 {% if page_obj.has_previous %}
-                    <a class="rounded-lg border border-slate-300 px-3 py-2 hover:bg-slate-50" href="?page={{ page_obj.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}">Anterior</a>
+                    <a class="rounded-lg border border-slate-300 px-3 py-2 hover:bg-slate-50" href="?page={{ page_obj.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}">{% trans "Anterior" %}</a>
                 {% endif %}
                 {% if page_obj.has_next %}
-                    <a class="rounded-lg border border-slate-300 px-3 py-2 hover:bg-slate-50" href="?page={{ page_obj.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}">Próxima</a>
+                    <a class="rounded-lg border border-slate-300 px-3 py-2 hover:bg-slate-50" href="?page={{ page_obj.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}">{% trans "Próxima" %}</a>
                 {% endif %}
             </div>
         </div>

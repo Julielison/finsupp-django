@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}{% if object %}Editar conta e cartões{% else %}Nova conta bancária{% endif %} - FinSupp{% endblock %}
+{% block title %}{% if object %}{% trans "Editar conta e cartões" %}{% else %}{% trans "Nova conta bancária" %}{% endif %} - FinSupp{% endblock %}
 
 {% block content %}
 <section class="mx-auto max-w-3xl space-y-6">
     <div class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">FinSupp / Contas e Cartões</p>
-        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">{% if object %}Editar conta e cartões{% else %}Nova conta e cartões{% endif %}</h1>
-        <p class="mt-2 text-sm text-slate-600">Preencha os dados da conta e associe os seus cartões em etapas.</p>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">{% trans "FinSupp / Contas e Cartões" %}</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">{% if object %}{% trans "Editar conta e cartões" %}{% else %}{% trans "Nova conta e cartões" %}{% endif %}</h1>
+        <p class="mt-2 text-sm text-slate-600">{% trans "Preencha os dados da conta e associe os seus cartões em etapas." %}</p>
 
         <form method="post" class="mt-8 space-y-6" novalidate id="bank-account-form">
             {% csrf_token %}
 
-            <!-- Step Indicators -->
             <div class="flex items-center mb-8">
                 <div class="flex-1">
                     <div class="relative">
@@ -22,11 +22,11 @@
                         <div class="relative flex justify-between">
                             <div>
                                 <span class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-white ring-4 ring-white shadow-sm font-bold transition-colors" id="step1-indicator">1</span>
-                                <p class="absolute -bottom-6 -ml-4 text-xs font-medium text-indigo-600" id="step1-label">Conta</p>
+                                <p class="absolute -bottom-6 -ml-4 text-xs font-medium text-indigo-600" id="step1-label">{% trans "Conta" %}</p>
                             </div>
                             <div>
                                 <span class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 text-slate-500 ring-4 ring-white shadow-sm font-bold transition-colors" id="step2-indicator">2</span>
-                                <p class="absolute -bottom-6 -ml-4 text-xs font-medium text-slate-500" id="step2-label">Cartões</p>
+                                <p class="absolute -bottom-6 -ml-4 text-xs font-medium text-slate-500" id="step2-label">{% trans "Cartões" %}</p>
                             </div>
                         </div>
                     </div>
@@ -40,62 +40,60 @@
                 </div>
             {% endif %}
 
-            <!-- STEP 1: Informações da Conta -->
             <div id="step-1" class="space-y-5 animate-in fade-in zoom-in-95 duration-200">
-                <h2 class="text-xl font-bold text-slate-800 border-b pb-2">Passo 1: Detalhes da Conta</h2>
+                <h2 class="text-xl font-bold text-slate-800 border-b pb-2">{% trans "Passo 1: Detalhes da Conta" %}</h2>
                 
                 <div>
-                    <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-slate-700">Descrição da Conta</label>
+                    <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-slate-700">{% trans "Descrição da Conta" %}</label>
                     {{ form.name }}
                     {% if form.name.errors %}<p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>{% endif %}
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label for="{{ form.institution.id_for_label }}" class="block text-sm font-medium text-slate-700">Banco</label>
+                        <label for="{{ form.institution.id_for_label }}" class="block text-sm font-medium text-slate-700">{% trans "Banco" %}</label>
                         {{ form.institution }}
                         {% if form.institution.errors %}<p class="mt-1 text-sm text-red-600">{{ form.institution.errors.0 }}</p>{% endif %}
                     </div>
                     <div>
-                        <label for="{{ form.account_type.id_for_label }}" class="block text-sm font-medium text-slate-700">Tipo de conta</label>
+                        <label for="{{ form.account_type.id_for_label }}" class="block text-sm font-medium text-slate-700">{% trans "Tipo de conta" %}</label>
                         {{ form.account_type }}
                         {% if form.account_type.errors %}<p class="mt-1 text-sm text-red-600">{{ form.account_type.errors.0 }}</p>{% endif %}
                     </div>
                 </div>
 
                 <div>
-                    <label for="{{ form.balance.id_for_label }}" class="block text-sm font-medium text-slate-700">Saldo inicial</label>
+                    <label for="{{ form.balance.id_for_label }}" class="block text-sm font-medium text-slate-700">{% trans "Saldo inicial" %}</label>
                     {{ form.balance }}
                     {% if form.balance.errors %}<p class="mt-1 text-sm text-red-600">{{ form.balance.errors.0 }}</p>{% endif %}
                 </div>
 
                 <div class="grid grid-cols-2 gap-5">
                     <div>
-                        <label for="{{ form.closing_day.id_for_label }}" class="block text-sm font-medium text-slate-700">Dia de fechamento</label>
+                        <label for="{{ form.closing_day.id_for_label }}" class="block text-sm font-medium text-slate-700">{% trans "Dia de fechamento" %}</label>
                         {{ form.closing_day }}
                         {% if form.closing_day.errors %}<p class="mt-1 text-sm text-red-600">{{ form.closing_day.errors.0 }}</p>{% endif %}
                     </div>
                     <div>
-                        <label for="{{ form.payment_due_day.id_for_label }}" class="block text-sm font-medium text-slate-700">Dia de vencimento</label>
+                        <label for="{{ form.payment_due_day.id_for_label }}" class="block text-sm font-medium text-slate-700">{% trans "Dia de vencimento" %}</label>
                         {{ form.payment_due_day }}
                         {% if form.payment_due_day.errors %}<p class="mt-1 text-sm text-red-600">{{ form.payment_due_day.errors.0 }}</p>{% endif %}
                     </div>
                 </div>
 
                 <div class="flex flex-wrap gap-3 pt-4 border-t">
-                    <button type="button" onclick="nextStep()" class="inline-flex items-center rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-all">
-                        Continuar para Cartões &rarr;
+                    <button type="button" onclick="nextStep()" class="inline-flex items-center rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all">
+                        {% trans "Continuar para Cartões &rarr;" %}
                     </button>
                     <a href="{% url 'bank_accounts:list' %}" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-all">
-                        Cancelar
+                        {% trans "Cancelar" %}
                     </a>
                 </div>
             </div>
 
-            <!-- STEP 2: Cartões Vinculados -->
             <div id="step-2" class="space-y-6 hidden animate-in slide-in-from-right-4 duration-300">
-                <h2 class="text-xl font-bold text-slate-800 border-b pb-2">Passo 2: Cartões Vinculados</h2>
-                <p class="text-sm text-slate-500">Adicione os cartões (débito ou crédito) associados a esta conta bancária.</p>
+                <h2 class="text-xl font-bold text-slate-800 border-b pb-2">{% trans "Passo 2: Cartões Vinculados" %}</h2>
+                <p class="text-sm text-slate-500">{% trans "Adicione os cartões (débito ou crédito) associados a esta conta bancária." %}</p>
                 
                 {{ card_formset.management_form }}
                 
@@ -105,31 +103,27 @@
                             {{ card_form.id }}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700">Descrição do Cartão</label>
+                                    <label class="block text-sm font-medium text-slate-700">{% trans "Descrição do Cartão" %}</label>
                                     {{ card_form.description }}
-                                    {% if card_form.description.errors %}<p class="mt-1 text-sm text-red-600">{{ card_form.description.errors.0 }}</p>{% endif %}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700">Final (4 dígitos)</label>
+                                    <label class="block text-sm font-medium text-slate-700">{% trans "Final (4 dígitos)" %}</label>
                                     {{ card_form.last_numbers }}
-                                    {% if card_form.last_numbers.errors %}<p class="mt-1 text-sm text-red-600">{{ card_form.last_numbers.errors.0 }}</p>{% endif %}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700">Limite</label>
+                                    <label class="block text-sm font-medium text-slate-700">{% trans "Limite" %}</label>
                                     {{ card_form.limit }}
-                                    {% if card_form.limit.errors %}<p class="mt-1 text-sm text-red-600">{{ card_form.limit.errors.0 }}</p>{% endif %}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700">Tipo</label>
+                                    <label class="block text-sm font-medium text-slate-700">{% trans "Tipo" %}</label>
                                     {{ card_form.type }}
-                                    {% if card_form.type.errors %}<p class="mt-1 text-sm text-red-600">{{ card_form.type.errors.0 }}</p>{% endif %}
                                 </div>
                             </div>
                             {% if card_form.instance.pk %}
                                 <div class="mt-4 flex justify-end">
                                     <label class="inline-flex items-center space-x-2 text-sm font-medium text-red-600 hover:text-red-800 cursor-pointer p-2 rounded hover:bg-red-50 transition-colors">
                                         {{ card_form.DELETE }}
-                                        <span>Excluir este cartão</span>
+                                        <span>{% trans "Excluir este cartão" %}</span>
                                     </label>
                                 </div>
                             {% endif %}
@@ -141,15 +135,15 @@
                     <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    Adicionar outro cartão
+                    {% trans "Adicionar outro cartão" %}
                 </button>
 
                 <div class="flex flex-wrap gap-3 pt-6 border-t mt-8">
                     <button type="button" onclick="prevStep()" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-all">
-                        &larr; Voltar
+                        &larr; {% trans "Voltar" %}
                     </button>
-                    <button type="submit" class="inline-flex items-center rounded-xl bg-indigo-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-all">
-                        {% if object %}Salvar tudo{% else %}Finalizar criação{% endif %}
+                    <button type="submit" class="inline-flex items-center rounded-xl bg-indigo-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all">
+                        {% if object %}{% trans "Salvar tudo" %}{% else %}{% trans "Finalizar criação" %}{% endif %}
                     </button>
                 </div>
             </div>
@@ -161,50 +155,38 @@
     function nextStep() {
         document.getElementById('step-1').classList.add('hidden');
         document.getElementById('step-2').classList.remove('hidden');
-        
         const step2Indicator = document.getElementById('step2-indicator');
         step2Indicator.classList.replace('bg-slate-200', 'bg-indigo-600');
         step2Indicator.classList.replace('text-slate-500', 'text-white');
-        
         document.getElementById('step2-label').classList.replace('text-slate-500', 'text-indigo-600');
         document.getElementById('progress-bar').classList.replace('bg-slate-200', 'bg-indigo-200');
-        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     function prevStep() {
         document.getElementById('step-2').classList.add('hidden');
         document.getElementById('step-1').classList.remove('hidden');
-        
         const step2Indicator = document.getElementById('step2-indicator');
         step2Indicator.classList.replace('bg-indigo-600', 'bg-slate-200');
         step2Indicator.classList.replace('text-white', 'text-slate-500');
-        
         document.getElementById('step2-label').classList.replace('text-indigo-600', 'text-slate-500');
         document.getElementById('progress-bar').classList.replace('bg-indigo-200', 'bg-slate-200');
-        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('cards-container');
         const addButton = document.getElementById('add-card-btn');
-        const totalFormsInput = document.querySelector('#id_cards-TOTAL_FORMS'); // prefix 'cards' due to related_name
-        
-        // If there are errors in step 2 (cards), automatically show step 2 on load
+        const totalFormsInput = document.querySelector('#id_cards-TOTAL_FORMS');
         if (document.querySelectorAll('#step-2 .text-red-600').length > 0) {
             nextStep();
         }
-        
         addButton.addEventListener('click', function(e) {
             e.preventDefault();
             const formCount = parseInt(totalFormsInput.value);
             const forms = container.querySelectorAll('.card-form');
-            
             if (forms.length > 0) {
                 const firstForm = forms[0].cloneNode(true);
-                
-                // Limpa os valores do formulário clonado
                 const inputs = firstForm.querySelectorAll('input, select');
                 inputs.forEach(input => {
                     input.name = input.name.replace(/-\d+-/, `-${formCount}-`);
@@ -215,15 +197,10 @@
                         input.checked = false;
                     }
                 });
-                
-                // Remove mensagens de erro do clone
                 const errors = firstForm.querySelectorAll('.text-red-600');
                 errors.forEach(err => err.remove());
-                
-                // Remove checkbox de exclusão se existir no clone
                 const deleteLabel = firstForm.querySelector('label.text-red-600');
                 if (deleteLabel) deleteLabel.parentElement.remove();
-
                 container.appendChild(firstForm);
                 totalFormsInput.value = formCount + 1;
             }
