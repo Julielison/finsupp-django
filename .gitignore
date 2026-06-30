@@ -210,3 +210,8 @@ marimo/_lsp/
 __marimo__/
 
 .vscode
+
+# Temporaries for i18n
+finsupp/gettext/
+finsupp/gettext.zip
+finsupp/translate_bot*.py
