@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from bank_accounts.models import BankAccount
 from cards.models import Card
@@ -18,7 +19,7 @@ class BankAccountForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ex.: Conta principal',
+                    'placeholder': _('Ex.: Conta principal'),
                     'autofocus': True,
                     'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500',
                 }
@@ -35,14 +36,14 @@ class BankAccountForm(forms.ModelForm):
             ),
             'balance': forms.NumberInput(
                 attrs={
-                    'placeholder': 'Ex: 1000',
+                    'placeholder': _('Ex: 1000'),
                     'step': '0.01',
                     'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500',
                 }
             ),
             'closing_day': forms.NumberInput(
                 attrs={
-                    'placeholder': 'Ex: 03',
+                    'placeholder': _('Ex: 03'),
                     'min': '1',
                     'max': '31',
                     'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500',
@@ -50,7 +51,7 @@ class BankAccountForm(forms.ModelForm):
             ),
             'payment_due_day': forms.NumberInput(
                 attrs={
-                    'placeholder': 'Ex: 10',
+                    'placeholder': _('Ex: 10'),
                     'min': '1',
                     'max': '31',
                     'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500',
@@ -71,7 +72,7 @@ class BankAccountForm(forms.ModelForm):
             existing_accounts = existing_accounts.exclude(pk=self.instance.pk)
 
         if existing_accounts.exists():
-            raise ValidationError('Já existe uma conta bancária com este nome.')
+            raise ValidationError(_('Já existe uma conta bancária com este nome.'))
 
         return normalized_name
 
@@ -80,9 +81,9 @@ class CardForm(forms.ModelForm):
         model = Card
         fields = ('description', 'last_numbers', 'limit', 'type')
         widgets = {
-            'description': forms.TextInput(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500', 'placeholder': 'Ex: Nubank'}),
-            'last_numbers': forms.TextInput(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500', 'placeholder': 'Ex: 1234', 'maxlength': '4'}),
-            'limit': forms.NumberInput(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500', 'placeholder': 'Ex: 5000', 'step': '1'}),
+            'description': forms.TextInput(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500', 'placeholder': _('Ex: Nubank')}),
+            'last_numbers': forms.TextInput(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500', 'placeholder': _('Ex: 1234'), 'maxlength': '4'}),
+            'limit': forms.NumberInput(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500', 'placeholder': _('Ex: 5000'), 'step': '1'}),
             'type': forms.Select(attrs={'class': 'mt-2 block w-full rounded-xl border border-slate-300 px-3 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500'}),
         }
 

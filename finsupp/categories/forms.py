@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from categories.models import Category
 
@@ -15,7 +16,7 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             'description': forms.TextInput(
                 attrs={
-                    'placeholder': 'Ex.: Alimentação',
+                    'placeholder': _('Ex.: Alimentação'),
                     'autofocus': True,
                 }
             ),
@@ -28,7 +29,7 @@ class CategoryForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             current_description = ' '.join((self.instance.description or '').split()).strip().title()
             if normalized_description == current_description:
-                raise ValidationError('A descrição da categoria não foi alterada.')
+                raise ValidationError(_('A descrição da categoria não foi alterada.'))
 
         existing_categories = Category.objects.filter(description__iexact=normalized_description)
 
@@ -39,6 +40,6 @@ class CategoryForm(forms.ModelForm):
             existing_categories = existing_categories.exclude(pk=self.instance.pk)
 
         if existing_categories.exists():
-            raise ValidationError('Já existe uma categoria com esta descrição.')
+            raise ValidationError(_('Já existe uma categoria com esta descrição.'))
 
         return normalized_description
