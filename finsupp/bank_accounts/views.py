@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from bank_accounts.forms import BankAccountForm
+from bank_accounts.forms import BankAccountForm, CardFormSet
 from bank_accounts.models import BankAccount
 
 
@@ -39,10 +39,27 @@ class BankAccountCreateView(LoginRequiredMixin, CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data['card_formset'] = CardFormSet(self.request.POST)
+        else:
+            data['card_formset'] = CardFormSet()
+        return data
+
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        messages.success(self.request, 'Conta bancária criada com sucesso.')
-        return super().form_valid(form)
+        context = self.get_context_data()
+        card_formset = context['card_formset']
+        if card_formset.is_valid():
+            self.object = form.save(commit=False)
+            self.object.user = self.request.user
+            self.object.save()
+            card_formset.instance = self.object
+            card_formset.save()
+            messages.success(self.request, 'Conta bancária e cartões criados com sucesso.')
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class BankAccountUpdateView(LoginRequiredMixin, UpdateView):
@@ -59,9 +76,25 @@ class BankAccountUpdateView(LoginRequiredMixin, UpdateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data['card_formset'] = CardFormSet(self.request.POST, instance=self.object)
+        else:
+            data['card_formset'] = CardFormSet(instance=self.object)
+        return data
+
     def form_valid(self, form):
-        messages.success(self.request, 'Conta bancária atualizada com sucesso.')
-        return super().form_valid(form)
+        context = self.get_context_data()
+        card_formset = context['card_formset']
+        if card_formset.is_valid():
+            self.object = form.save()
+            card_formset.instance = self.object
+            card_formset.save()
+            messages.success(self.request, 'Conta bancária e cartões atualizados com sucesso.')
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class BankAccountDeleteView(LoginRequiredMixin, DeleteView):
