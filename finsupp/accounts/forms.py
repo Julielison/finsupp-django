@@ -1,24 +1,25 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(
-        label='Nome',
+        label=_('Nome'),
         max_length=150,
-        widget=forms.TextInput(attrs={'placeholder': 'Seu nome', 'autofocus': True}),
+        widget=forms.TextInput(attrs={'placeholder': _('Seu nome'), 'autofocus': True}),
     )
     last_name = forms.CharField(
-        label='Sobrenome',
+        label=_('Sobrenome'),
         max_length=150,
-        widget=forms.TextInput(attrs={'placeholder': 'Seu sobrenome'}),
+        widget=forms.TextInput(attrs={'placeholder': _('Seu sobrenome')}),
     )
     email = forms.EmailField(
-        label='E-mail',
+        label=_('E-mail'),
         max_length=254,
-        widget=forms.EmailInput(attrs={'placeholder': 'seu@email.com'}),
+        widget=forms.EmailInput(attrs={'placeholder': _('seu@email.com')}),
     )
 
     class Meta:
@@ -28,7 +29,7 @@ class CustomUserCreationForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email', '').lower().strip()
         if User.objects.filter(email__iexact=email).exists():
-            raise forms.ValidationError('Já existe um usuário cadastrado com este e-mail.')
+            raise forms.ValidationError(_('Já existe um usuário cadastrado com este e-mail.'))
         return email
 
     def save(self, commit=True):
@@ -40,11 +41,11 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(
-        label='E-mail',
-        widget=forms.EmailInput(attrs={'placeholder': 'seu@email.com', 'autofocus': True}),
+        label=_('E-mail'),
+        widget=forms.EmailInput(attrs={'placeholder': _('seu@email.com'), 'autofocus': True}),
     )
 
     error_messages = {
-        'invalid_login': 'E-mail ou senha incorretos. Verifique suas credenciais e tente novamente.',
-        'inactive': 'Esta conta está inativa.',
+        'invalid_login': _('E-mail ou senha incorretos. Verifique suas credenciais e tente novamente.'),
+        'inactive': _('Esta conta está inativa.'),
     }

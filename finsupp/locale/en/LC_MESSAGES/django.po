@@ -1,0 +1,820 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-30 11:28-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\accounts\forms.py:10 .\templates\bank_accounts\bank_account_list.html:21
+msgid "Nome"
+msgstr "Name"
+
+#: .\accounts\forms.py:12
+msgid "Seu nome"
+msgstr "Your name"
+
+#: .\accounts\forms.py:15
+msgid "Sobrenome"
+msgstr "Last name"
+
+#: .\accounts\forms.py:17
+msgid "Seu sobrenome"
+msgstr "Your last name"
+
+#: .\accounts\forms.py:20 .\accounts\forms.py:44
+msgid "E-mail"
+msgstr "Email"
+
+#: .\accounts\forms.py:22 .\accounts\forms.py:45
+msgid "seu@email.com"
+msgstr "your@email.com"
+
+#: .\accounts\forms.py:32 .\accounts\models.py:12
+msgid "Já existe um usuário cadastrado com este e-mail."
+msgstr "A user with this email already exists."
+
+#: .\accounts\forms.py:49
+msgid ""
+"E-mail ou senha incorretos. Verifique suas credenciais e tente novamente."
+msgstr ""
+"Incorrect email or password. Please check your credentials and try again."
+
+#: .\accounts\forms.py:50
+msgid "Esta conta está inativa."
+msgstr "This account is inactive."
+
+#: .\accounts\models.py:9
+msgid "endereço de e-mail"
+msgstr "email address"
+
+#: .\accounts\models.py:22
+msgid "usuário"
+msgstr "user"
+
+#: .\accounts\models.py:23
+msgid "usuários"
+msgstr "users"
+
+#: .\bank_accounts\forms.py:22
+msgid "Ex.: Conta principal"
+msgstr "Ex.: Main account"
+
+#: .\bank_accounts\forms.py:39
+msgid "Ex: 1000"
+msgstr "Ex: 1000"
+
+#: .\bank_accounts\forms.py:46
+msgid "Ex: 03"
+msgstr "Ex: 03"
+
+#: .\bank_accounts\forms.py:54
+msgid "Ex: 10"
+msgstr "Ex: 10"
+
+#: .\bank_accounts\forms.py:75
+msgid "Já existe uma conta bancária com este nome."
+msgstr "A bank account with this name already exists."
+
+#: .\bank_accounts\forms.py:84
+msgid "Ex: Nubank"
+msgstr "Ex: Nubank"
+
+#: .\bank_accounts\forms.py:85
+msgid "Ex: 1234"
+msgstr "Ex: 1234"
+
+#: .\bank_accounts\forms.py:86
+msgid "Ex: 5000"
+msgstr "Ex: 5000"
+
+#: .\bank_accounts\models.py:8
+msgid "Banco do Brasil"
+msgstr "Banco do Brasil"
+
+#: .\bank_accounts\models.py:9
+msgid "Caixa Econômica Federal"
+msgstr "Caixa Econômica Federal"
+
+#: .\bank_accounts\models.py:10
+msgid "Bradesco"
+msgstr "Bradesco"
+
+#: .\bank_accounts\models.py:11
+msgid "Itaú"
+msgstr "Itaú"
+
+#: .\bank_accounts\models.py:12
+msgid "Santander"
+msgstr "Santander"
+
+#: .\bank_accounts\models.py:13
+msgid "Nubank"
+msgstr "Nubank"
+
+#: .\bank_accounts\models.py:14
+msgid "Inter"
+msgstr "Inter"
+
+#: .\bank_accounts\models.py:15
+msgid "BTG Pactual"
+msgstr "BTG Pactual"
+
+#: .\bank_accounts\models.py:16
+msgid "C6 Bank"
+msgstr "C6 Bank"
+
+#: .\bank_accounts\models.py:17
+msgid "Outro"
+msgstr "Other"
+
+#: .\bank_accounts\models.py:21
+msgid "Conta Corrente"
+msgstr "Checking Account"
+
+#: .\bank_accounts\models.py:22
+msgid "Conta Poupança"
+msgstr "Savings Account"
+
+#: .\bank_accounts\models.py:23
+msgid "Investimento"
+msgstr "Investment"
+
+#: .\bank_accounts\models.py:31 .\cards\models.py:10 .\categories\models.py:14
+#: .\transactions\models.py:31
+msgid "descrição"
+msgstr "description"
+
+#: .\bank_accounts\models.py:32
+msgid "banco"
+msgstr "bank"
+
+#: .\bank_accounts\models.py:33
+msgid "tipo da conta"
+msgstr "account type"
+
+#: .\bank_accounts\models.py:34
+msgid "saldo"
+msgstr "balance"
+
+#: .\bank_accounts\models.py:35
+msgid "dia de fechamento"
+msgstr "closing day"
+
+#: .\bank_accounts\models.py:36
+msgid "dia de vencimento (pagamento)"
+msgstr "due day (payment)"
+
+#: .\bank_accounts\models.py:39 .\cards\models.py:18
+#: .\transactions\models.py:21
+msgid "conta bancária"
+msgstr "bank account"
+
+#: .\bank_accounts\models.py:40
+msgid "contas bancárias"
+msgstr "bank accounts"
+
+#: .\bills\models.py:12
+msgid "OPEN"
+msgstr "OPEN"
+
+#: .\bills\models.py:13
+msgid "PAID"
+msgstr "PAID"
+
+#: .\bills\models.py:14
+msgid "CANCELED"
+msgstr "CANCELED"
+
+#: .\bills\models.py:27
+msgid "Bill already paid"
+msgstr "Bill already paid"
+
+#: .\bills\models.py:35
+msgid "Cannot cancel a paid bill"
+msgstr "Cannot cancel a paid bill"
+
+#: .\bills\models.py:37
+msgid "Bill already canceled"
+msgstr "Bill already canceled"
+
+#: .\cards\models.py:6
+msgid "Débito"
+msgstr "Debit"
+
+#: .\cards\models.py:7
+msgid "Crédito"
+msgstr "Credit"
+
+#: .\cards\models.py:8
+msgid "Ambos"
+msgstr "Both"
+
+#: .\cards\models.py:11
+msgid "últimos números"
+msgstr "last numbers"
+
+#: .\cards\models.py:12
+msgid "limite"
+msgstr "limit"
+
+#: .\cards\models.py:13
+msgid "tipo"
+msgstr "type"
+
+#: .\cards\models.py:22 .\transactions\models.py:41
+msgid "cartão"
+msgstr "card"
+
+#: .\cards\models.py:23
+msgid "cartões"
+msgstr "cards"
+
+#: .\categories\forms.py:19
+msgid "Ex.: Alimentação"
+msgstr "Ex.: Food"
+
+#: .\categories\forms.py:32
+msgid "A descrição da categoria não foi alterada."
+msgstr "Category description was not changed."
+
+#: .\categories\forms.py:43
+msgid "Já existe uma categoria com esta descrição."
+msgstr "A category with this description already exists."
+
+#: .\categories\models.py:17 .\transactions\models.py:29
+msgid "categoria"
+msgstr "category"
+
+#: .\categories\models.py:18
+msgid "categorias"
+msgstr "categories"
+
+#: .\finsupp\settings.py:133
+msgid "Portuguese"
+msgstr "Portuguese"
+
+#: .\finsupp\settings.py:134
+msgid "English"
+msgstr "English"
+
+#: .\templates\auth\login.html:4
+msgid "Entrar - FinSupp"
+msgstr "Login - FinSupp"
+
+#: .\templates\auth\login.html:6
+msgid "Entrar na sua conta"
+msgstr "Log into your account"
+
+#: .\templates\auth\login.html:10 .\templates\auth\register.html:10
+msgid "Ou"
+msgstr "Or"
+
+#: .\templates\auth\login.html:12
+msgid "crie sua conta gratuitamente"
+msgstr "create your account for free"
+
+#: .\templates\auth\login.html:31 .\templates\auth\register.html:31
+msgid "Foram encontrados os seguintes erros:"
+msgstr "The following errors were found:"
+
+#: .\templates\auth\login.html:46
+msgid "Endereço de e-mail"
+msgstr "Email address"
+
+#: .\templates\auth\login.html:60
+msgid "Senha"
+msgstr "Password"
+
+#: .\templates\auth\login.html:62
+msgid "Esqueceu a senha?"
+msgstr "Forgot password?"
+
+#: .\templates\auth\login.html:77 .\templates\base.html:64
+msgid "Entrar"
+msgstr "Login"
+
+#: .\templates\auth\register.html:4
+msgid "Criar Conta - FinSupp"
+msgstr "Create Account - FinSupp"
+
+#: .\templates\auth\register.html:6
+msgid "Crie sua conta"
+msgstr "Create your account"
+
+#: .\templates\auth\register.html:12
+msgid "faça login se já for registrado"
+msgstr "login if already registered"
+
+#: .\templates\auth\register.html:68
+msgid "Criar Conta"
+msgstr "Create Account"
+
+#: .\templates\bank_accounts\bank_account_list.html:4
+msgid "Contas Bancárias - FinSupp"
+msgstr "Bank Accounts - FinSupp"
+
+#: .\templates\bank_accounts\bank_account_list.html:10
+msgid "FinSupp / Contas Bancárias"
+msgstr "FinSupp / Bank Accounts"
+
+#: .\templates\bank_accounts\bank_account_list.html:11
+msgid "Gerenciar contas bancárias"
+msgstr "Manage bank accounts"
+
+#: .\templates\bank_accounts\bank_account_list.html:12
+msgid "Crie, edite e remova contas de forma simples e rápida."
+msgstr "Create, edit, and remove accounts simply and quickly."
+
+#: .\templates\bank_accounts\bank_account_list.html:15
+msgid "Nova conta"
+msgstr "New account"
+
+#: .\templates\bank_accounts\bank_account_list.html:22
+msgid "Filtrar por nome"
+msgstr "Filter by name"
+
+#: .\templates\bank_accounts\bank_account_list.html:25
+#: .\templates\categories\category_list.html:29
+#: .\templates\transactions\transaction_list.html:25
+msgid "Filtrar"
+msgstr "Filter"
+
+#: .\templates\bank_accounts\bank_account_list.html:26
+#: .\templates\categories\category_list.html:30
+#: .\templates\transactions\transaction_list.html:26
+msgid "Limpar"
+msgstr "Clear"
+
+#: .\templates\bank_accounts\bank_account_list.html:36
+#: .\templates\categories\category_list.html:25
+#: .\templates\categories\category_list.html:41
+#: .\templates\transactions\transaction_list.html:21
+#: .\templates\transactions\transaction_list.html:37
+msgid "Descrição"
+msgstr "Description"
+
+#: .\templates\bank_accounts\bank_account_list.html:37
+msgid "Banco"
+msgstr "Bank"
+
+#: .\templates\bank_accounts\bank_account_list.html:38
+#: .\templates\transactions\transaction_list.html:39
+msgid "Tipo"
+msgstr "Type"
+
+#: .\templates\bank_accounts\bank_account_list.html:39
+msgid "Saldo Inicial"
+msgstr "Initial Balance"
+
+#: .\templates\bank_accounts\bank_account_list.html:40
+#: .\templates\categories\category_list.html:42
+#: .\templates\transactions\transaction_list.html:40
+msgid "Ações"
+msgstr "Actions"
+
+#: .\templates\bank_accounts\bank_account_list.html:52
+#: .\templates\categories\category_list.html:52
+#: .\templates\transactions\transaction_list.html:54
+msgid "Editar"
+msgstr "Edit"
+
+#: .\templates\bank_accounts\bank_account_list.html:53
+#: .\templates\categories\category_list.html:53
+#: .\templates\transactions\transaction_list.html:55
+msgid "Excluir"
+msgstr "Delete"
+
+#: .\templates\bank_accounts\bank_account_list.html:63
+msgid "Nenhuma conta bancária encontrada"
+msgstr "No bank accounts found"
+
+#: .\templates\bank_accounts\bank_account_list.html:64
+msgid ""
+"Crie a primeira conta bancária para começar a organizar as informações."
+msgstr "Create the first bank account to start organizing information."
+
+#: .\templates\bank_accounts\bank_account_list.html:66
+msgid "Criar conta"
+msgstr "Create account"
+
+#: .\templates\bank_accounts\bank_account_list.html:75
+#: .\templates\categories\category_list.html:75
+#: .\templates\transactions\transaction_list.html:76
+#, python-format
+msgid "Página %(page_obj.number)s de %(page_obj.paginator.num_pages)s"
+msgstr "Page %(page_obj.number)s of %(page_obj.paginator.num_pages)s"
+
+#: .\templates\bank_accounts\bank_account_list.html:79
+#: .\templates\bills\bill_list.html:69
+#: .\templates\categories\category_list.html:79
+#: .\templates\transactions\transaction_list.html:80
+msgid "Anterior"
+msgstr "Previous"
+
+#: .\templates\bank_accounts\bank_account_list.html:82
+#: .\templates\bills\bill_list.html:79
+#: .\templates\categories\category_list.html:82
+#: .\templates\transactions\transaction_list.html:83
+msgid "Próxima"
+msgstr "Next"
+
+#: .\templates\base.html:51
+msgid "Controle financeiro pessoal"
+msgstr "Personal financial control"
+
+#: .\templates\base.html:56
+msgid "Início"
+msgstr "Home"
+
+#: .\templates\base.html:57 .\templates\core\home.html:18
+msgid "Categorias"
+msgstr "Categories"
+
+#: .\templates\base.html:58 .\templates\core\home.html:22
+msgid "Contas"
+msgstr "Accounts"
+
+#: .\templates\base.html:59 .\templates\core\home.html:26
+msgid "Transações"
+msgstr "Transactions"
+
+#: .\templates\base.html:60 .\templates\bills\bill_list.html:11
+msgid "Faturas"
+msgstr "Bills"
+
+#: .\templates\base.html:62
+msgid "Sair"
+msgstr "Logout"
+
+#: .\templates\bills\bill_list.html:4
+msgid "Faturas - FinSupp"
+msgstr "Bills - FinSupp"
+
+#: .\templates\bills\bill_list.html:10
+msgid "FinSupp / Finanças"
+msgstr "FinSupp / Finances"
+
+#: .\templates\bills\bill_list.html:12
+msgid "Gerencie todas as suas faturas de cartões e contas."
+msgstr "Manage all your card and account bills."
+
+#: .\templates\bills\bill_list.html:16
+msgid "Todas"
+msgstr "All"
+
+#: .\templates\bills\bill_list.html:17
+msgid "Abertas"
+msgstr "Open"
+
+#: .\templates\bills\bill_list.html:18
+msgid "Pagas"
+msgstr "Paid"
+
+#: .\templates\bills\bill_list.html:19
+msgid "Canceladas"
+msgstr "Canceled"
+
+#: .\templates\bills\bill_list.html:28
+msgid "Aberta"
+msgstr "Open"
+
+#: .\templates\bills\bill_list.html:30
+msgid "Paga"
+msgstr "Paid"
+
+#: .\templates\bills\bill_list.html:32
+msgid "Cancelada"
+msgstr "Canceled"
+
+#: .\templates\bills\bill_list.html:35
+msgid "Vence:"
+msgstr "Due:"
+
+#: .\templates\bills\bill_list.html:38
+msgid "Fatura Padrão"
+msgstr "Standard Bill"
+
+#: .\templates\bills\bill_list.html:59
+msgid "Nenhuma fatura encontrada"
+msgstr "No bills found"
+
+#: .\templates\bills\bill_list.html:60
+msgid ""
+"Experimente alterar os filtros acima ou crie novas transações para o cartão "
+"de crédito."
+msgstr ""
+"Try changing the filters above or create new transactions for the credit "
+"card."
+
+#: .\templates\bills\bill_list.html:75
+msgid "Página"
+msgstr "Page"
+
+#: .\templates\bills\bill_list.html:75
+msgid "de"
+msgstr "of"
+
+#: .\templates\categories\category_list.html:4
+msgid "Categorias - FinSupp"
+msgstr "Categories - FinSupp"
+
+#: .\templates\categories\category_list.html:10
+msgid "FinSupp / Categorias"
+msgstr "FinSupp / Categories"
+
+#: .\templates\categories\category_list.html:11
+msgid "Gerenciar categorias"
+msgstr "Manage categories"
+
+#: .\templates\categories\category_list.html:12
+msgid "Crie, edite e remova categorias de forma simples e rápida."
+msgstr "Create, edit, and remove categories simply and quickly."
+
+#: .\templates\categories\category_list.html:15
+msgid "Nova categoria"
+msgstr "New category"
+
+#: .\templates\categories\category_list.html:21
+#: .\templates\categories\category_list.html:40
+msgid "ID"
+msgstr "ID"
+
+#: .\templates\categories\category_list.html:26
+#: .\templates\transactions\transaction_list.html:22
+msgid "Filtrar por descrição"
+msgstr "Filter by description"
+
+#: .\templates\categories\category_list.html:63
+msgid "Nenhuma categoria encontrada"
+msgstr "No categories found"
+
+#: .\templates\categories\category_list.html:64
+msgid "Crie a primeira categoria para começar a organizar as informações."
+msgstr "Create the first category to start organizing information."
+
+#: .\templates\categories\category_list.html:66
+msgid "Criar categoria"
+msgstr "Create category"
+
+#: .\templates\core\home.html:4
+msgid "Início - FinSupp"
+msgstr "Home - FinSupp"
+
+#: .\templates\core\home.html:10
+msgid "Painel inicial"
+msgstr "Dashboard"
+
+#: .\templates\core\home.html:11
+msgid "Bem-vindo ao FinSupp"
+msgstr "Welcome to FinSupp"
+
+#: .\templates\core\home.html:13
+msgid ""
+"Este é o ponto de entrada do sistema. A partir daqui você pode gerenciar "
+"suas finanças de forma simples e eficiente."
+msgstr ""
+"This is the entry point of the system. From here you can manage your "
+"finances simply and efficiently."
+
+#: .\templates\core\home.html:19
+msgid ""
+"Organize suas despesas e receitas em categorias personalizadas para melhor "
+"visualização."
+msgstr ""
+"Organize your expenses and incomes into custom categories for better "
+"visualization."
+
+#: .\templates\core\home.html:23
+msgid ""
+"Cadastre suas contas bancárias e acompanhe o saldo e movimentações de cada "
+"uma."
+msgstr ""
+"Register your bank accounts and track the balance and transactions of each "
+"one."
+
+#: .\templates\core\home.html:27
+msgid ""
+"Registre entradas e saídas de dinheiro, mantendo seu controle financeiro "
+"sempre atualizado."
+msgstr ""
+"Record cash inflows and outflows, keeping your financial control always "
+"updated."
+
+#: .\templates\transactions\transaction_list.html:4
+msgid "Transações - FinSupp"
+msgstr "Transactions - FinSupp"
+
+#: .\templates\transactions\transaction_list.html:10
+msgid "FinSupp / Transações"
+msgstr "FinSupp / Transactions"
+
+#: .\templates\transactions\transaction_list.html:11
+msgid "Gerenciar transações"
+msgstr "Manage transactions"
+
+#: .\templates\transactions\transaction_list.html:12
+msgid "Acompanhe suas receitas e despesas."
+msgstr "Track your incomes and expenses."
+
+#: .\templates\transactions\transaction_list.html:15
+msgid "Nova transação"
+msgstr "New transaction"
+
+#: .\templates\transactions\transaction_list.html:36
+msgid "Data"
+msgstr "Date"
+
+#: .\templates\transactions\transaction_list.html:38
+msgid "Valor"
+msgstr "Amount"
+
+#: .\templates\transactions\transaction_list.html:65
+msgid "Nenhuma transação encontrada"
+msgstr "No transactions found"
+
+#: .\templates\transactions\transaction_list.html:67
+msgid "Criar transação"
+msgstr "Create transaction"
+
+#: .\transactions\forms.py:21
+msgid "Ex.: Compra no supermercado"
+msgstr "Ex.: Grocery shopping"
+
+#: .\transactions\forms.py:33 .\transactions\models.py:58
+msgid "Um cartão deve ser informado para adicionar na fatura."
+msgstr "A card must be provided to add to the bill."
+
+#: .\transactions\forms.py:35 .\transactions\models.py:60
+msgid ""
+"Apenas transações com cartão de crédito podem ser adicionadas à fatura."
+msgstr "Only credit card transactions can be added to the bill."
+
+#: .\transactions\models.py:8
+msgid "Receita"
+msgstr "Income"
+
+#: .\transactions\models.py:9
+msgid "Despesa"
+msgstr "Expense"
+
+#: .\transactions\models.py:32
+msgid "valor"
+msgstr "amount"
+
+#: .\transactions\models.py:33
+msgid "data"
+msgstr "date"
+
+#: .\transactions\models.py:34
+msgid "tipo de transação"
+msgstr "transaction type"
+
+#: .\transactions\models.py:43
+msgid "adicionar na fatura"
+msgstr "add to bill"
+
+#: .\transactions\models.py:44
+msgid "parcelas"
+msgstr "installments"
+
+#: .\transactions\models.py:47
+msgid "transação"
+msgstr "transaction"
+
+#: .\transactions\models.py:48
+msgid "transações"
+msgstr "transactions"
+
+msgid "Editar conta e cartões"
+msgstr "Edit account and cards"
+
+msgid "Nova conta bancária"
+msgstr "New bank account"
+
+msgid "FinSupp / Contas e Cartões"
+msgstr "FinSupp / Accounts and Cards"
+
+msgid "Nova conta e cartões"
+msgstr "New account and cards"
+
+msgid "Preencha os dados da conta e associe os seus cartões em etapas."
+msgstr "Fill in the account details and link your cards in steps."
+
+msgid "Conta"
+msgstr "Account"
+
+msgid "Cartões"
+msgstr "Cards"
+
+msgid "Passo 1: Detalhes da Conta"
+msgstr "Step 1: Account Details"
+
+msgid "Descrição da Conta"
+msgstr "Account Description"
+
+msgid "Tipo de conta"
+msgstr "Account Type"
+
+msgid "Saldo inicial"
+msgstr "Initial balance"
+
+msgid "Dia de fechamento"
+msgstr "Closing day"
+
+msgid "Dia de vencimento"
+msgstr "Due day"
+
+msgid "Continuar para Cartões &rarr;"
+msgstr "Continue to Cards &rarr;"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Passo 2: Cartões Vinculados"
+msgstr "Step 2: Linked Cards"
+
+msgid ""
+"Adicione os cartões (débito ou crédito) associados a esta conta bancária."
+msgstr "Add the cards (debit or credit) linked to this bank account."
+
+msgid "Descrição do Cartão"
+msgstr "Card Description"
+
+msgid "Final (4 dígitos)"
+msgstr "Ending in (4 digits)"
+
+msgid "Limite"
+msgstr "Limit"
+
+msgid "Excluir este cartão"
+msgstr "Delete this card"
+
+msgid "Adicionar outro cartão"
+msgstr "Add another card"
+
+msgid "Voltar"
+msgstr "Back"
+
+msgid "Salvar tudo"
+msgstr "Save all"
+
+msgid "Finalizar criação"
+msgstr "Finish creation"
+
+msgid "Editar categoria"
+msgstr "Edit category"
+
+msgid "Use o mesmo estilo da aplicação para manter a consistência visual."
+msgstr "Use the same application style to maintain visual consistency."
+
+msgid "Salvar alterações"
+msgstr "Save changes"
+
+msgid "Voltar para Faturas"
+msgstr "Back to Bills"
+
+msgid "Detalhes da Fatura"
+msgstr "Bill Details"
+
+msgid "Status: Aberta"
+msgstr "Status: Open"
+
+msgid "Status: Paga"
+msgstr "Status: Paid"
+
+msgid "Status: Cancelada"
+msgstr "Status: Canceled"
+
+msgid "Valor Total"
+msgstr "Total Value"
+
+msgid "Vencimento"
+msgstr "Due Date"
+
+msgid "Conta Associada"
+msgstr "Linked Account"
+
+msgid "Itens na Fatura"
+msgstr "Bill Items"
+
+msgid "Nenhuma despesa atrelada a esta fatura ainda."
+msgstr "No expenses linked to this bill yet."
+
+msgid "Cancelar Fatura"
+msgstr "Cancel Bill"
+
+msgid "Marcar como Paga"
+msgstr "Mark as Paid"

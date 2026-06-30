@@ -27,6 +27,7 @@ urlpatterns = [
     path('transacoes/', include('transactions.urls')),
     path('faturas/api/', include('bills.urls')),
     path('faturas/', include(('bills.front_urls', 'bills'), namespace='bills')),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('', home, name='home'),
 ]
 

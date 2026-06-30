@@ -1,14 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from accounts.managers import CustomUserManager
 
 class User(AbstractUser):
     username = None
     email = models.EmailField(
-        'endereço de e-mail',
+        _('endereço de e-mail'),
         unique=True,
         error_messages={
-            'unique': 'Já existe um usuário cadastrado com este e-mail.',
+            'unique': _('Já existe um usuário cadastrado com este e-mail.'),
         },
     )
 
@@ -18,8 +19,8 @@ class User(AbstractUser):
     objects = CustomUserManager()
 
     class Meta:
-        verbose_name = 'usuário'
-        verbose_name_plural = 'usuários'
+        verbose_name = _('usuário')
+        verbose_name_plural = _('usuários')
         ordering = ['first_name', 'last_name']
 
     def __str__(self):

@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rpub!z3)h92mn@))u93guy8*@2rq^!^o^uw)^*&!r6kixq91lr'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-unsafe-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=lambda v: [s.strip() for s in v.split(',')] if v else [])
 
 
 # Application definition
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'bank_accounts',
     'transactions',
     'bills',
+    'rest_framework',
+    'cards',
 ]
 
 # Cron jobs: generate bills daily at 02:00 (enabled only if django_crontab is installed)
@@ -60,6 +62,7 @@ except Exception:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -121,7 +124,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+import os
+from django.utils.translation import gettext_lazy as _
+
 LANGUAGE_CODE = 'pt-br'
+
+LANGUAGES = (
+    ('pt-br', _('Portuguese')),
+    ('en', _('English')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 TIME_ZONE = 'America/Sao_Paulo'
 
@@ -170,3 +185,11 @@ DEFAULT_FROM_EMAIL = 'nao-responda@ugustavodev.com.br'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+# Django REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
